@@ -1,0 +1,26 @@
+{
+  "name": "swarm-contracts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "truffle.js",
+  "directories": {
+    "test": "truffle test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tokensoft/swarm-contracts.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tokensoft/swarm-contracts/issues"
+  },
+  "homepage": "https://github.com/tokensoft/swarm-contracts#readme",
+  "dependencies": {
+    "truffle": "^3.4.9",
+    "zeppelin-solidity": "^1.2.0"
+  }
+}
