@@ -59,11 +59,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
 
       // Calculate token amount to be created.
       // Uses dynamic price calculator based on current number of sold tokens.
-      uint256 tokens = weiAmount.div(getSaleRate(baseTokensSold));
-
-      // Verify that the user did not try to send in less than rate*multiplier (between 1 and approx 5 USD).
-      // This would result in 0 tokens getting issued.
-      require(tokens > 0);
+      uint256 tokens = weiAmount.mul(getSaleRate(baseTokensSold));
 
       // update state
       weiRaised = weiRaised.add(weiAmount);
@@ -91,7 +87,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
      * uint256 currentTokensSold Amount of tokens already sold in base units to use in pricing function.
      * uint256 Current price in wei per token base unit.
      */
-    function getSaleRate(uint256 currentBaseTokensSold) public returns (uint256) {
+    function getSaleRate(uint256 currentBaseTokensSold) public constant returns (uint256) {
 
       // Base units per token
       uint decimals = 10**18;
@@ -112,7 +108,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
         priceMultiplier += decimals.div(1 + i);
       }
 
-      // Need to jump through some hoops to ensure int division doesn't truncate
+      // To ensure int division doesn't truncate, using rate * 10^18.
       // Return the initial rate divided by the multiplier.
       // If initial rate is 300 then the second generation should return => 300*10^18 / 1.5*10^18  => 200
       return rate.mul(decimals).div(priceMultiplier);
@@ -122,6 +118,8 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
      * Mints any tokens for the pre-allocations
      */
     function allocateInitialTokens(MintableToken tokenContract) internal {
-
+      
+      // Example of a pre-allocation of 100 tokens
+      tokenContract.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * 10**18);
     }
 }
