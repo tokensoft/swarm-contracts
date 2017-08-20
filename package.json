@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "truffle.js",
-  "directories": {
-    "test": "truffle test"
-  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "compile": "truffle compile",
+    "migrate": "truffle migrate",
+    "test": "./scripts/test.sh",
+    "console": "truffle console",
+    "testrpc": "testrpc"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,8 @@
   },
   "homepage": "https://github.com/tokensoft/swarm-contracts#readme",
   "dependencies": {
-    "truffle": "^3.4.9",
-    "zeppelin-solidity": "^1.2.0"
+    "ethereumjs-testrpc": "^4.0.1",
+    "truffle": "3.4.6",
+    "zeppelin-solidity": "1.2.0"
   }
 }
