@@ -40,7 +40,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
      * @return MintableToken Minime Token Contract
      */
     function createTokenContract() internal returns (MintableToken) {
-      // TODO have token and factory get sent into constructor
+      // TODO have token and factory  for minime instead of placeholder.
       PlaceHolderToken token = new PlaceHolderToken();
       allocateInitialTokens(token);
 
@@ -105,11 +105,11 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
       for (uint i = 0; i <= generation; i++) {
 
         // The multiplier is calculated at 10^18 units since uint256 can't handle decimals.
-        priceMultiplier += decimals.div(1 + i);
+        priceMultiplier = priceMultiplier.add(decimals.div(1 + i));
       }
 
-      // To ensure int division doesn't truncate, using rate * 10^18.
       // Return the initial rate divided by the multiplier.
+      // To ensure int division doesn't truncate, using rate * 10^18 in numerator.      
       // If initial rate is 300 then the second generation should return => 300*10^18 / 1.5*10^18  => 200
       return rate.mul(decimals).div(priceMultiplier);
     }
