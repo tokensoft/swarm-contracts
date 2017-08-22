@@ -1,7 +1,7 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.13;
 
-import '../token/MintableToken.sol';
-import '../math/SafeMath.sol';
+import '../token/SwarmToken.sol';
+import '../zeppelin/math/SafeMath.sol';
 
 /**
  * @title Crowdsale 
@@ -15,7 +15,7 @@ contract Crowdsale {
   using SafeMath for uint256;
 
   // The token being sold
-  MintableToken public token;
+  SwarmToken public token;
 
   // start and end block where investments are allowed (both inclusive)
   uint256 public startBlock;
@@ -24,7 +24,7 @@ contract Crowdsale {
   // address where funds are collected
   address public wallet;
 
-  // how many token units a buyer gets per wei
+  // Initial rate of how many tokens a buyer gets per ETH
   uint256 public rate;
 
   // amount of raised money in wei
@@ -54,10 +54,8 @@ contract Crowdsale {
   }
 
   // creates the token to be sold. 
-  // override this method to have crowdsale of a specific mintable token.
-  function createTokenContract() internal returns (MintableToken) {
-    return new MintableToken();
-  }
+  // override this method to have crowdsale of a specific SwarmToken token.
+  function createTokenContract() internal returns (SwarmToken);
 
 
   // fallback function can be used to buy tokens
@@ -66,23 +64,7 @@ contract Crowdsale {
   }
 
   // low level token purchase function
-  function buyTokens(address beneficiary) payable {
-    require(beneficiary != 0x0);
-    require(validPurchase());
-
-    uint256 weiAmount = msg.value;
-
-    // calculate token amount to be created
-    uint256 tokens = weiAmount.mul(rate);
-
-    // update state
-    weiRaised = weiRaised.add(weiAmount);
-
-    token.mint(beneficiary, tokens);
-    TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);
-
-    forwardFunds();
-  }
+  function buyTokens(address beneficiary) payable;
 
   // send ether to the fund collection wallet
   // override to create custom fund forwarding mechanisms

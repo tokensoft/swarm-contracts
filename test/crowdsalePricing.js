@@ -50,4 +50,25 @@ contract('SwarmCrowdsale Pricing', async (accounts) => {
       assert.equal(calculatedPrice.toNumber(), record.expectedRate, record.note)
     }
   })
+
+  // it('Print out sale esitmates', async () => {
+  //   let crowdsale = await SwarmCrowdsale.deployed()
+  //   const million = 1000000
+
+  //   let totalRaised = 0
+
+  //   for (let i = 0; i <= 100; i++) {
+  //     let tokensSold = million * i
+  //     let amountSoldBaseUnits = convertToBaseUnits(tokensSold)
+  //     let calculatedPrice = await crowdsale.getSaleRate(amountSoldBaseUnits)
+
+  //     let priceNum = calculatedPrice.toNumber()
+
+  //     totalRaised += 300 * million / priceNum
+
+  //     if (i <= 100) {
+  //       console.log('Tokens sold: ' + tokensSold + ' priceNum: ' + priceNum + ' totalRaised: ' + totalRaised)
+  //     }
+  //   }
+  // })
 })

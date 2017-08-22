@@ -1,7 +1,7 @@
-pragma solidity ^0.4.11;
+pragma solidity ^0.4.13;
 
-import '../math/SafeMath.sol';
-import '../ownership/Ownable.sol';
+import '../zeppelin/math/SafeMath.sol';
+import '../zeppelin/ownership/Ownable.sol';
 import './Crowdsale.sol';
 
 /**
@@ -30,10 +30,6 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   // end token minting on finalization
   // override this with custom logic if needed
-  function finalization() internal {
-    token.finishMinting();
-  }
-
-
+  function finalization() internal;
 
 }

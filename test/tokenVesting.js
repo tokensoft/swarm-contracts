@@ -101,6 +101,29 @@ let vestAmtWithAdded = [
   { crowdSalePurchased: 100000, currentBalance: 4100000, expected: 4000000 + 100000, note: '' }
 ]
 
+// Simulate not buying into the token sale, but buying afterwards
+let vestAmtWithoutCrowdsalePurchase = [
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: 'Until first period ends, no vested tokens' },
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: 'Until first period ends, no vested tokens' },
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: 'Until first period ends, no vested tokens' },
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: 'Until first period ends, no vested tokens' },
+  { crowdSalePurchased: 0, currentBalance: 100, expected: 100, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 2100000, expected: 2100000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 2100000, expected: 2100000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 5100000, expected: 5100000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 6100000, expected: 6100000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 100000, expected: 100000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 21000000000, expected: 21000000000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 500000, expected: 500000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 418880000, expected: 418880000, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 9323453, expected: 9323453, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 23453245676877654324567, expected: 23453245676877654324567, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 267865435678765456785657, expected: 267865435678765456785657, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 0, expected: 0, note: '' },
+  { crowdSalePurchased: 0, currentBalance: 1, expected: 1, note: '' }
+]
+
 contract('Swarm Token Vesting', async (accounts) => {
   it('vesting periods increase every 42 days', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
@@ -154,6 +177,21 @@ contract('Swarm Token Vesting', async (accounts) => {
     for (let i = 0; i < vestAmtWithAdded.length; i++) {
       // Build the values to check
       let record = vestAmtWithAdded[i]
+      let vestingTime = expectedVestingPeriods[i]
+      let vestedAmount = await token.getVestedBalance(record.crowdSalePurchased, record.currentBalance, vestingTime.start, vestingTime.current)
+
+      assert.equal(vestedAmount.toNumber(), record.expected, record.note)
+    }
+  })
+
+  it('All coins bought outside of crowdsale should not be subject to vesting', async () => {
+    let crowdsale = await SwarmCrowdsale.deployed()
+    let tokenAddr = await crowdsale.token()
+    let token = await PlaceHolderToken.at(tokenAddr)
+
+    for (let i = 0; i < vestAmtWithoutCrowdsalePurchase.length; i++) {
+      // Build the values to check
+      let record = vestAmtWithoutCrowdsalePurchase[i]
       let vestingTime = expectedVestingPeriods[i]
       let vestedAmount = await token.getVestedBalance(record.crowdSalePurchased, record.currentBalance, vestingTime.start, vestingTime.current)
 
