@@ -64,10 +64,12 @@ contract('SwarmCrowdsale Pricing', async (accounts) => {
 
   //     let priceNum = calculatedPrice.toNumber()
 
-  //     totalRaised += 300 * million / priceNum
+  //     let currentRaise = 300 * million / priceNum
+  //     totalRaised += currentRaise
 
   //     if (i <= 100) {
-  //       console.log('Tokens sold: ' + tokensSold + ' priceNum: ' + priceNum + ' totalRaised: ' + totalRaised)
+  //       console.log()
+  //       console.log('Tokens sold: ' + tokensSold + ' priceNum: ' + priceNum + ' totalRaised: ' + totalRaised + ' currentRaise: ' + currentRaise)
   //     }
   //   }
   // })

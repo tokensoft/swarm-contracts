@@ -9,7 +9,7 @@ contract SwarmToken is MiniMeVestedToken {
    * Factory is pre-deployed and passed in.
    */
   function SwarmToken(address _tokenFactory)
-    MiniMeToken(
+    MiniMeVestedToken(
       _tokenFactory,
       0x0,
       0,
@@ -19,4 +19,5 @@ contract SwarmToken is MiniMeVestedToken {
       true
     )
     {}
+    
 }

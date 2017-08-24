@@ -16,6 +16,21 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
 
   event Finalized();
 
+  /**
+   * Pass through constructor to parents.
+   */
+  function FinalizableCrowdsale (
+    uint256 _startTime,
+    uint256 _endTime,
+    uint256 _rate,
+    address _wallet,
+    address _token
+  )
+    Crowdsale(_startTime, _endTime, _rate, _wallet, _token)
+    Ownable()
+  {
+  }
+
   // should be called after crowdsale ends, to do
   // some extra finalization work
   function finalize() onlyOwner {

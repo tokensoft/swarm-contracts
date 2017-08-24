@@ -1,6 +1,6 @@
 /* global artifacts, it, assert, contract */
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
-var PlaceHolderToken = artifacts.require('./token/PlaceHolderToken.sol')
+var SwarmToken = artifacts.require('./token/SwarmToken.sol')
 
 const SECONDS_IN_A_DAY = 86400
 
@@ -128,7 +128,7 @@ contract('Swarm Token Vesting', async (accounts) => {
   it('vesting periods increase every 42 days', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
     let tokenAddr = await crowdsale.token()
-    let token = await PlaceHolderToken.at(tokenAddr)
+    let token = await SwarmToken.at(tokenAddr)
 
     for (let i = 0; i < expectedVestingPeriods.length; i++) {
       // Build the values to check
@@ -142,7 +142,7 @@ contract('Swarm Token Vesting', async (accounts) => {
   it('vesting of initial coins should happen in step fashion', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
     let tokenAddr = await crowdsale.token()
-    let token = await PlaceHolderToken.at(tokenAddr)
+    let token = await SwarmToken.at(tokenAddr)
 
     for (let i = 0; i < vestAmtNoAdded.length; i++) {
       // Build the values to check
@@ -157,7 +157,7 @@ contract('Swarm Token Vesting', async (accounts) => {
   it('vesting of initial coins should happen in step fashion and account for them being immediately transferred out', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
     let tokenAddr = await crowdsale.token()
-    let token = await PlaceHolderToken.at(tokenAddr)
+    let token = await SwarmToken.at(tokenAddr)
 
     for (let i = 0; i < vestAmtWithSubtracted.length; i++) {
       // Build the values to check
@@ -172,7 +172,7 @@ contract('Swarm Token Vesting', async (accounts) => {
   it('vesting of initial coins should happen in step fashion with addition of tokens later', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
     let tokenAddr = await crowdsale.token()
-    let token = await PlaceHolderToken.at(tokenAddr)
+    let token = await SwarmToken.at(tokenAddr)
 
     for (let i = 0; i < vestAmtWithAdded.length; i++) {
       // Build the values to check
@@ -187,7 +187,7 @@ contract('Swarm Token Vesting', async (accounts) => {
   it('All coins bought outside of crowdsale should not be subject to vesting', async () => {
     let crowdsale = await SwarmCrowdsale.deployed()
     let tokenAddr = await crowdsale.token()
-    let token = await PlaceHolderToken.at(tokenAddr)
+    let token = await SwarmToken.at(tokenAddr)
 
     for (let i = 0; i < vestAmtWithoutCrowdsalePurchase.length; i++) {
       // Build the values to check

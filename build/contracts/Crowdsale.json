@@ -122,6 +122,10 @@
         {
           "name": "_wallet",
           "type": "address"
+        },
+        {
+          "name": "_token",
+          "type": "address"
         }
       ],
       "payable": false,
@@ -162,5 +166,5 @@
   "unlinked_binary": "0x",
   "networks": {},
   "schema_version": "0.0.5",
-  "updated_at": 1503376062513
+  "updated_at": 1503556359454
 }

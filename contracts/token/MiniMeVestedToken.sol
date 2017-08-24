@@ -16,6 +16,28 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   // Vesting will start accruing at this point in time.
   uint256 vestingStartTime;
 
+  // Pass through consructor
+  function MiniMeVestedToken(
+    address _tokenFactory,
+    address _parentToken,
+    uint _parentSnapShotBlock,
+    string _tokenName,
+    uint8 _decimalUnits,
+    string _tokenSymbol,
+    bool _transfersEnabled
+  ) 
+  MiniMeMintableToken(
+    _tokenFactory,
+    _parentToken,
+    _parentSnapShotBlock,
+    _tokenName,
+    _decimalUnits,
+    _tokenSymbol,
+    _transfersEnabled
+  )
+  {
+  }
+
 ////////////////////
 // Token Transfers
 ////////////////////

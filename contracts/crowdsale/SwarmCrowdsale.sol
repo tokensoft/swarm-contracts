@@ -2,7 +2,8 @@ pragma solidity ^0.4.13;
 
 import './FinalizableCrowdsale.sol';
 import '../zeppelin/math/SafeMath.sol';
-import '../token/SwarmToken.sol';
+import '../token/MiniMeToken.sol';
+import '../token/MiniMeTokenFactory.sol';
 
 /**
  * @title SwarmCrowdsale
@@ -25,6 +26,14 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   // The amount of tokens sold during the crowdsale
   uint public baseTokensSold = 0;
 
+  // Token base units are 18 decimals
+  uint256 constant TOKEN_DECIMALS = 10**18;
+
+  // Minimum tokens sold is 33 million
+  uint256 constant TOKEN_MIN_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
+
+  bool public initialized = false;
+
   /**
    * Pass through constructor to parents.
    */
@@ -32,25 +41,23 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     uint256 _startTime,
     uint256 _endTime,
     uint256 _rate,
-    address _wallet
+    address _wallet,
+    address _token
   )
-    Crowdsale(_startTime, _endTime, _rate, _wallet)
+    FinalizableCrowdsale(_startTime, _endTime, _rate, _wallet, _token)
   {
   }
 
-  /**
-    * Overrides Base Function.
-    * It will return the token contract and also trigger any initial token allocations to be made.
-    * @return MintableToken Minime Token Contract
+    /**
+    * Mints any tokens for the pre-allocations
     */
-  function createTokenContract() internal returns (SwarmToken) {
+  function initializeToken() onlyOwner {
+    // Allow this to only be called once by the owner.
+    require(!initialized);
+    initialized = true;
     
-    MiniMeTokenFactory factory = new MiniMeTokenFactory();
-    SwarmToken token = new SwarmToken(factory);
-
-    allocateInitialTokens(token);
-
-    return token;
+    // Example of a pre-allocation of 100 tokens
+    token.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * 10**18);
   }
 
   /**
@@ -83,7 +90,28 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     * Ends token minting on finalization
     */
     function finalization() internal {
+
+      // Handle unsold token logic
+      transferUnallocatedTokens();
+
       token.finishMinting();
+    }
+
+    /**
+     * According to the terms of the sale, a minimum of 33 million tokens are to be distributed.
+     * If the public does not buy 33 million tokens then the amount sold is subtracted from 33 million and allocated to the Swarm Foundation.
+     * This function will mint any remaining tokens of the 33 minimum to the "wallet" account.
+     */
+    function transferUnallocatedTokens() internal {      
+
+      // If the minimum amount sold was met, then take no action
+      if (baseTokensSold > TOKEN_MIN_SOLD) {
+        return;
+      }
+
+      // Minimum tokens were not sold.  Get the amount to transfer and assign to wallet address.
+      uint256 amountToTransfer = TOKEN_MIN_SOLD.sub(baseTokensSold);
+      token.mint(wallet, amountToTransfer);
     }
 
   /**
@@ -119,14 +147,5 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     // To ensure int division doesn't truncate, using rate * 10^18 in numerator.      
     // If initial rate is 300 then the second generation should return => 300*10^18 / 1.5*10^18  => 200
     return rate.mul(decimals).div(priceMultiplier);
-  }
-
-  /**
-    * Mints any tokens for the pre-allocations
-    */
-  function allocateInitialTokens(SwarmToken tokenContract) internal {
-    
-    // Example of a pre-allocation of 100 tokens
-    tokenContract.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * 10**18);
   }
 }
