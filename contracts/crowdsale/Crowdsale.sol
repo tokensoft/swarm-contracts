@@ -24,10 +24,10 @@ contract Crowdsale {
   // address where funds are collected
   address public wallet;
 
-  // Initial rate of how many tokens a buyer gets per ETH
+  // Initial rate of how many tokens a buyer gets per ETH the send in.
   uint256 public rate;
 
-  // amount of raised money in wei
+  // amount of raised ETH in wei
   uint256 public weiRaised;
 
   /**
@@ -39,7 +39,9 @@ contract Crowdsale {
    */ 
   event TokenPurchase(address indexed purchaser, address indexed beneficiary, uint256 value, uint256 amount);
 
-
+  /**
+   * Constructor to save off args defining the sale.
+   */
   function Crowdsale(uint256 _startBlock, uint256 _endBlock, uint256 _rate, address _wallet, address _token) {
     require(_startBlock >= block.number);
     require(_endBlock >= _startBlock);

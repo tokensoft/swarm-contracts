@@ -37,10 +37,14 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
     require(!isFinalized);
     require(hasEnded());
 
-    finalization();
-    Finalized();
-    
+    // Set the flag to prevent another finalization
     isFinalized = true;
+
+    // Call the finalization function in the implementing class.
+    finalization();
+
+    // Trigger the finalized event.
+    Finalized();
   }
 
   // end token minting on finalization

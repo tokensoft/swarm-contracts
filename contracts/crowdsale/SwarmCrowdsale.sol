@@ -20,6 +20,8 @@ import '../token/SwarmToken.sol';
  * as tokens are sold.  rate = USD price of ETH (e.g. "300")
  *
  * Wallet is the address where all incoming funds will be forwarded.  Should be a multisig for security.
+ *
+ * @author poole_party via tokensoft.io
  */
 contract SwarmCrowdsale is FinalizableCrowdsale {
   using SafeMath for uint256;  
@@ -63,9 +65,8 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   }
 
   /**
-    * Overrides Base Function to allow division of sales rate instead of multiplier.
-    * Instead of using whole number multiplier, we use a base unit value smaller than 1 ETH.
-    */
+   * Function to allow users to purchase tokens based on the calculated sale rate.
+   */
   function buyTokens(address beneficiary) public payable {
     require(beneficiary != 0x0);
     require(validPurchase());
@@ -103,7 +104,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     }
 
     /**
-     * According to the terms of the sale, a minimum of 33 million tokens are to be distributed.
+     * According to the terms of the sale, a minimum of 33 million tokens are to allocated for the crowd sale.
      * If the public does not buy 33 million tokens then the amount sold is subtracted from 33 million and allocated to the Swarm Foundation.
      * This function will mint any remaining tokens of the 33 minimum to the "wallet" account.
      */
@@ -150,7 +151,14 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
 
     // Return the initial rate divided by the multiplier.
     // To ensure int division doesn't truncate, using rate * 10^18 in numerator.      
-    // If initial rate is 300 then the second generation should return => 300*10^18 / 1.5*10^18  => 200
+    // If initial rate is 300 then the second generation should return => 300*10^18 / 1.5*10^18  => 200 (e.g less tokens per ETH the second gen)
     return rate.mul(decimals).div(priceMultiplier);
+  }
+
+  /**
+   * Convenience method for users.
+   */
+  function getCurrentSaleRate() public constant returns (uint256) {
+    return getSaleRate(baseTokensSold);
   }
 }

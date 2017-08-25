@@ -44,6 +44,7 @@ contract MiniMeVestedToken is MiniMeMintableToken {
 
   /**
    * Modifier to functions to see if the vested balance is higher than requested transfer amount.
+   * Also enforces that the minting phase of the sale is over.
    */
   modifier canTransfer(address _sender, uint _value) {
     require(mintingFinished);
@@ -92,7 +93,7 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   /**
     * Gets the vested balance for an account.
     * initialBalance - The amount that was allocated at the start of vesting.
-    * currentBalance - The amount that is current in the account.
+    * currentBalance - The amount that is currently in the account.
     * vestingStartTime - The time stamp (seconds since unix epoch) when vesting started.
     * currentTime - The current time stamp (seconds since unix epoch).
     */
@@ -107,19 +108,25 @@ contract MiniMeVestedToken is MiniMeMintableToken {
       // First, get the number of vesting periods completed
       uint256 vestedPeriodsCompleted = getVestingPeriodsCompleted(_vestingStartTime, _currentTime);
 
-      // Vesting period is not over.  Calculate the amount that should be withheld.
+      // Calculate the amount that should be withheld.
       uint256 vestingPeriodsRemaining = VESTING_TOTAL_PERIODS - vestedPeriodsCompleted;
       uint256 unvestedBalance = _initialBalance.mul(vestingPeriodsRemaining).div(VESTING_TOTAL_PERIODS);
+
+      // Return the current balance minus any that is still unvested.
       return _currentBalance.sub(unvestedBalance);
   }
 
   /**
-   * Get the vested balance of the address.
+   * Convenience method - Get the vested balance of the address.
    */
   function vestedBalanceOf(address _owner) public constant returns (uint256 balance) {
     return getVestedBalance(issuedTokens[_owner], balanceOf(_owner), vestingStartTime, block.timestamp);
   }
 
+  /**
+   * At the end of the sale, this should be called to trigger the vesting to start.
+   * Tokens cannot be transferred prior to this being called.
+   */
   function finishMinting() onlyController canMint returns (bool) {
     // Set the time stamp for tokens to start vesting
     vestingStartTime = block.timestamp;

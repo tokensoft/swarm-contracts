@@ -7,6 +7,8 @@ contract SwarmToken is MiniMeVestedToken {
   /**
    * Constructor to initialize Swarm Token.
    * Factory is pre-deployed and passed in.
+   *
+   * @author poole_party via tokensoft.io
    */
   function SwarmToken(address _tokenFactory)
     MiniMeVestedToken(
