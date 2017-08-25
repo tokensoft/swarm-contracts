@@ -13,9 +13,9 @@ contract SwarmToken is MiniMeVestedToken {
       _tokenFactory,
       0x0,
       0,
-      "Swarm.Fund Token",
+      "Swarm Fund Token",
       18,
-      "SWRM",
+      "SWM",
       true
     )
     {}

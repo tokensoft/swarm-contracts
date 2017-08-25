@@ -4,6 +4,7 @@ import './FinalizableCrowdsale.sol';
 import '../zeppelin/math/SafeMath.sol';
 import '../token/MiniMeToken.sol';
 import '../token/MiniMeTokenFactory.sol';
+import '../token/SwarmToken.sol';
 
 /**
  * @title SwarmCrowdsale
@@ -21,21 +22,21 @@ import '../token/MiniMeTokenFactory.sol';
  * Wallet is the address where all incoming funds will be forwarded.  Should be a multisig for security.
  */
 contract SwarmCrowdsale is FinalizableCrowdsale {
-  using SafeMath for uint256;
+  using SafeMath for uint256;  
 
   // The amount of tokens sold during the crowdsale
-  uint public baseTokensSold = 0;
+  uint256 public baseTokensSold = 0;
 
   // Token base units are 18 decimals
   uint256 constant TOKEN_DECIMALS = 10**18;
 
-  // Minimum tokens sold is 33 million
-  uint256 constant TOKEN_MIN_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
+  // Target tokens sold is 33 million
+  uint256 constant TOKEN_TARGET_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
 
   bool public initialized = false;
 
   /**
-   * Pass through constructor to parents.
+   * Pass through constructor to parent.
    */
   function SwarmCrowdsale (
     uint256 _startTime,
@@ -48,15 +49,16 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   {
   }
 
-    /**
-    * Mints any tokens for the pre-allocations
-    */
+  /**
+  * Mints any tokens for the pre-allocations
+  */
   function initializeToken() onlyOwner {
     // Allow this to only be called once by the owner.
     require(!initialized);
     initialized = true;
     
     // Example of a pre-allocation of 100 tokens
+    // Actual pre-allocatins will be put here before deployment.
     token.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * 10**18);
   }
 
@@ -67,6 +69,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   function buyTokens(address beneficiary) public payable {
     require(beneficiary != 0x0);
     require(validPurchase());
+    require(initialized);
 
     uint256 weiAmount = msg.value;
 
@@ -78,9 +81,10 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     weiRaised = weiRaised.add(weiAmount);
     baseTokensSold = baseTokensSold.add(tokens);
 
-    token.mint(beneficiary, tokens);
+    // Mint the tokens for the purchaser
+    token.mint(beneficiary, tokens);    
     TokenPurchase(msg.sender, beneficiary, weiAmount, tokens);
-
+    
     forwardFunds();
   }
 
@@ -94,6 +98,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
       // Handle unsold token logic
       transferUnallocatedTokens();
 
+      // Complete minting and start vesting of token
       token.finishMinting();
     }
 
@@ -105,12 +110,12 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     function transferUnallocatedTokens() internal {      
 
       // If the minimum amount sold was met, then take no action
-      if (baseTokensSold > TOKEN_MIN_SOLD) {
+      if (baseTokensSold > TOKEN_TARGET_SOLD) {
         return;
       }
 
       // Minimum tokens were not sold.  Get the amount to transfer and assign to wallet address.
-      uint256 amountToTransfer = TOKEN_MIN_SOLD.sub(baseTokensSold);
+      uint256 amountToTransfer = TOKEN_TARGET_SOLD.sub(baseTokensSold);
       token.mint(wallet, amountToTransfer);
     }
 

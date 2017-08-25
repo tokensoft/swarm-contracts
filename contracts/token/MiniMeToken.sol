@@ -365,6 +365,8 @@ contract MiniMeToken is Controlled {
 ////////////////
 // Generate and destroy tokens
 ////////////////
+    event DebugAddr(address _addr);
+    event Debuguint256(uint256 _val);
 
     /// @notice Generates `_amount` tokens that are assigned to `_owner`
     /// @param _owner The address that will be assigned the new tokens
@@ -376,8 +378,10 @@ contract MiniMeToken is Controlled {
         require(curTotalSupply + _amount >= curTotalSupply); // Check for overflow
         uint previousBalanceTo = balanceOf(_owner);
         require(previousBalanceTo + _amount >= previousBalanceTo); // Check for overflow
+        
         updateValueAtNow(totalSupplyHistory, curTotalSupply + _amount);
         updateValueAtNow(balances[_owner], previousBalanceTo + _amount);
+
         Transfer(0, _owner, _amount);
         return true;
     }

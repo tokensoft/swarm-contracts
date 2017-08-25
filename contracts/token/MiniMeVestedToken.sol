@@ -14,7 +14,7 @@ contract MiniMeVestedToken is MiniMeMintableToken {
 
   // This value will keep track of the time when the minting is finished after the crowd sale ends.
   // Vesting will start accruing at this point in time.
-  uint256 vestingStartTime;
+  uint256 public vestingStartTime = 0;
 
   // Pass through consructor
   function MiniMeVestedToken(
@@ -46,6 +46,7 @@ contract MiniMeVestedToken is MiniMeMintableToken {
    * Modifier to functions to see if the vested balance is higher than requested transfer amount.
    */
   modifier canTransfer(address _sender, uint _value) {
+    require(mintingFinished);
     require(_value <= vestedBalanceOf(_sender));
     _;
   }
@@ -80,7 +81,6 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   // Each vesting period is 42 days, with a max of 8 periods
   uint256 constant public VESTING_PERIOD_TIME = 42 days;
   uint256 constant public VESTING_TOTAL_PERIODS = 8;
-  uint256 public vestingStartTimestamp = 0;
 
   /**
     * Gets the number of vesting periods that have completed from the start time to the current time.
@@ -116,11 +116,11 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   /**
    * Get the vested balance of the address.
    */
-  function vestedBalanceOf(address _owner) constant returns (uint256 balance) {
+  function vestedBalanceOf(address _owner) public constant returns (uint256 balance) {
     return getVestedBalance(issuedTokens[_owner], balanceOf(_owner), vestingStartTime, block.timestamp);
   }
 
-  function finishMinting() returns (bool) {    
+  function finishMinting() onlyController canMint returns (bool) {
     // Set the time stamp for tokens to start vesting
     vestingStartTime = block.timestamp;
 

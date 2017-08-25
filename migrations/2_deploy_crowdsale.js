@@ -10,14 +10,14 @@ let token
 let crowdsale
 
 module.exports = function (deployer, network, accounts) {
-  // These are the owners of the multisig contract to accept all payments from the crowd sale.
+  // The owners of the multisig contract to accept all payments from the crowd sale.
   let owners = [
     accounts[0],
     accounts[1],
     accounts[2]
   ]
 
-  // The is the required number of signatures required for the multisig wallet
+  // The required number of signatures required for the multisig wallet
   let requiredSignerCount = 2
 
   deployer.then(function () {

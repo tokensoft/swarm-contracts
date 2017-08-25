@@ -22,6 +22,8 @@
   "homepage": "https://github.com/tokensoft/swarm-contracts#readme",
   "dependencies": {
     "ethereumjs-testrpc": "^4.0.1",
+    "regenerator-runtime": "^0.11.0",
+    "solidity-test-util": "^1.0.8",
     "truffle": "3.4.6",
     "zeppelin-solidity": "1.2.0"
   }

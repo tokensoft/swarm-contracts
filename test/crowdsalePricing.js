@@ -1,9 +1,6 @@
-/* global artifacts, it, assert, contract, web3 */
+/* global artifacts, it, assert, contract */
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
-
-function convertToBaseUnits (amount) {
-  return web3.toWei(amount, 'ether')
-}
+var convertToBaseUnits = require('./helpers/convertToBaseUnits')
 
 contract('SwarmCrowdsale Pricing', async (accounts) => {
   it('Prices should match decreasing rate per ETH algo', async () => {
@@ -51,7 +48,7 @@ contract('SwarmCrowdsale Pricing', async (accounts) => {
     }
   })
 
-  // it('Print out sale esitmates', async () => {
+  // it('Print out sale estimates', async () => {
   //   let crowdsale = await SwarmCrowdsale.deployed()
   //   const million = 1000000
 

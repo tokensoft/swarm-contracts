@@ -59,6 +59,8 @@ contract MiniMeMintableToken is MiniMeToken {
 
     // Trigger the minting event notification
     Mint(_to, _amount);
+
+    return true;
   }
 
   /**
@@ -70,7 +72,8 @@ contract MiniMeMintableToken is MiniMeToken {
     // Set the minting finished so that tokens can be transferred once vested.
     // This flag will prevent new tokens from being minted in the future.
     mintingFinished = true;
-
+    MintFinished();
+    
     return true;
   }
 }

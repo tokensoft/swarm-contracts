@@ -80,6 +80,4 @@ contract Crowdsale {
   function hasEnded() public constant returns (bool) {
     return block.number > endBlock;
   }
-
-
 }
