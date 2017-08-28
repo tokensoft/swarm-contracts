@@ -35,6 +35,9 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   // Target tokens sold is 33 million
   uint256 constant TOKEN_TARGET_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
 
+  // Cap on the crowdsale for number of tokens - 43,290,000 tokens or approx $155m
+  uint256 constant MAX_TOKEN_SALE_CAP = 43290000 * TOKEN_DECIMALS;
+
   bool public initialized = false;
 
   /**
@@ -81,6 +84,9 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     // update state
     weiRaised = weiRaised.add(weiAmount);
     baseTokensSold = baseTokensSold.add(tokens);
+
+    // Enforce the cap on the crowd sale - do not allow a sale to go over the max
+    require(baseTokensSold <= MAX_TOKEN_SALE_CAP);
 
     // Mint the tokens for the purchaser
     token.mint(beneficiary, tokens);    
