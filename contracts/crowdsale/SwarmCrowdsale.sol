@@ -35,8 +35,8 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   // Target tokens sold is 33 million
   uint256 constant TOKEN_TARGET_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
 
-  // Cap on the crowdsale for number of tokens - 43,290,000 tokens or approx $155m
-  uint256 constant MAX_TOKEN_SALE_CAP = 43290000 * TOKEN_DECIMALS;
+  // Cap on the crowdsale for number of tokens - 65,000,000 tokens or approx $255m
+  uint256 constant MAX_TOKEN_SALE_CAP = 65000000 * TOKEN_DECIMALS;
 
   bool public initialized = false;
 
@@ -70,7 +70,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   /**
    * Function to allow users to purchase tokens based on the calculated sale rate.
    */
-  function buyTokens(address beneficiary) public payable {
+  function buyTokens(address beneficiary) public payable whenNotPaused {
     require(beneficiary != 0x0);
     require(validPurchase());
     require(initialized);
@@ -100,7 +100,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     * Take any finalization actions here
     * Ends token minting on finalization
     */
-    function finalization() internal {
+    function finalization() internal whenNotPaused {
 
       // Handle unsold token logic
       transferUnallocatedTokens();

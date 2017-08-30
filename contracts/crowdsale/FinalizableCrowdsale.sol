@@ -1,7 +1,7 @@
 pragma solidity ^0.4.13;
 
 import '../zeppelin/math/SafeMath.sol';
-import '../zeppelin/ownership/Ownable.sol';
+import '../zeppelin/lifecycle/Pausable.sol';
 import './Crowdsale.sol';
 
 /**
@@ -9,7 +9,7 @@ import './Crowdsale.sol';
  * @dev Extension of Crowsdale where an owner can do extra work
  * after finishing. By default, it will end token minting.
  */
-contract FinalizableCrowdsale is Crowdsale, Ownable {
+contract FinalizableCrowdsale is Crowdsale, Pausable {
   using SafeMath for uint256;
 
   bool public isFinalized = false;

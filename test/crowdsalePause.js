@@ -6,17 +6,15 @@ var convertToBaseUnits = require('./helpers/convertToBaseUnits')
 var blockHelper = require('./helpers/miner')
 const assertJump = require('./helpers/assertJump')
 
-contract('Swarm Crowd Sale Cap', async (accounts) => {
-  it('Contract should enforce max purchase', async () => {
+contract('Swarm Crowd Sale Pausing', async (accounts) => {
+  it('Contract should not allow purchases when paused', async () => {
     let factory = await MiniMeTokenFactory.deployed()
     let token = await SwarmToken.new(factory.address)
 
     // Deploy the crowd sale with params
     let startBlock = web3.eth.blockNumber + 10
     let endBlock = web3.eth.blockNumber + 20
-
-    // Set the rate really high so we can reach the cap on the second buy
-    let rate = 60000000
+    let rate = 300
 
     // Deploy the crowd sale and initialize it
     let crowdsale = await SwarmCrowdsale.new(startBlock, endBlock, rate, accounts[5], token.address)
@@ -29,43 +27,21 @@ contract('Swarm Crowd Sale Cap', async (accounts) => {
     // Should succeed on start block
     await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
 
-    // Second sale should sell due to over the limit
+    // Pause it
+    await crowdsale.pause()
+
+    // After paused should fail
     try {
       await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
-      assert.fail('After the end block should fail')
+      assert.fail('After pause should fail')
     } catch (error) {
       assertJump(error)
     }
-  })
 
-  it('Contract should allow max purchase', async () => {
-    let factory = await MiniMeTokenFactory.deployed()
-    let token = await SwarmToken.new(factory.address)
+    // Unpause it
+    await crowdsale.unpause()
 
-    // Deploy the crowd sale with params
-    let startBlock = web3.eth.blockNumber + 10
-    let endBlock = web3.eth.blockNumber + 20
-
-    // Set the rate really high so we can reach the cap on the second buy
-    let rate = 65000000
-
-    // Deploy the crowd sale and initialize it
-    let crowdsale = await SwarmCrowdsale.new(startBlock, endBlock, rate, accounts[5], token.address)
-    await token.changeController(crowdsale.address)
-    await crowdsale.initializeToken()
-
-    // Mine until start block
-    await blockHelper.mineBlock(startBlock - 1)
-
-    // Should succeed on start block
+    // Should succeed again
     await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
-
-    // Second sale should not sell due to over the limit
-    try {
-      await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
-      assert.fail('After the end block should fail')
-    } catch (error) {
-      assertJump(error)
-    }
   })
 })
