@@ -97,4 +97,35 @@ contract('Swarm Crowd Sale Finalization', async (accounts) => {
 
     assert(amt.equals(0), 'No tokens should be transferred.')
   })
+
+  it('should change ownership of token after finalization', async () => {
+    let factory = await MiniMeTokenFactory.deployed()
+    let token = await SwarmToken.new(factory.address)
+
+    // Deploy the crowd sale with params
+    let startBlock = web3.eth.blockNumber + 5
+    let endBlock = web3.eth.blockNumber + 7
+    let rate = 300
+
+    // Deploy the crowd sale and initialize it - Account 5 will get forwarded funds
+    let crowdsale = await SwarmCrowdsale.new(startBlock, endBlock, rate, accounts[5], token.address)
+    await token.changeController(crowdsale.address)
+    await crowdsale.initializeToken()
+
+    // Mine until start block
+    await blockHelper.mineBlock(startBlock)
+
+    // Buy some tokens
+    await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
+
+    // Mine until after end bloc
+    await blockHelper.mineBlock(endBlock + 1)
+
+    assert.equal(await token.controller(), crowdsale.address, 'Crowdsale should be owner before finalization')
+
+    // Finalize the sale
+    await crowdsale.finalize()
+
+    assert.equal(await token.controller(), accounts[5], 'Crowdsale multisig should be owner after finalization')
+  })
 })

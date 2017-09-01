@@ -107,6 +107,9 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
 
       // Complete minting and start vesting of token
       token.finishMinting();
+
+      // Transfer ownership to the wallet
+      token.changeController(wallet);
     }
 
     /**
