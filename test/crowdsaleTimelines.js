@@ -44,7 +44,7 @@ contract('Swarm Crowd Sale Timelines', async (accounts) => {
     // Should succeed on last block
     await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
 
-    // Mine one more bloc
+    // Mine one more block
     await blockHelper.mineBlock(endBlock)
 
     // After the end block should fail

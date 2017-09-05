@@ -109,7 +109,7 @@ contract MiniMeVestedToken is MiniMeMintableToken {
       uint256 vestedPeriodsCompleted = getVestingPeriodsCompleted(_vestingStartTime, _currentTime);
 
       // Calculate the amount that should be withheld.
-      uint256 vestingPeriodsRemaining = VESTING_TOTAL_PERIODS - vestedPeriodsCompleted;
+      uint256 vestingPeriodsRemaining = VESTING_TOTAL_PERIODS.sub(vestedPeriodsCompleted);
       uint256 unvestedBalance = _initialBalance.mul(vestingPeriodsRemaining).div(VESTING_TOTAL_PERIODS);
 
       // Return the current balance minus any that is still unvested.
