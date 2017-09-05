@@ -12,7 +12,7 @@ contract('Swarm Token ETH handler', async (accounts) => {
     // Should fail to allow eth to be sent
     try {
       await web3.eth.sendTransaction({from: accounts[3], to: token.address, value: convertToBaseUnits(1), gas: 200000})
-      assert.fail('After pause should fail')
+      assert.fail('No ETH should be allowed to be sent to token contract')
     } catch (error) {
       assertJump(error)
     }
