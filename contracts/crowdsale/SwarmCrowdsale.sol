@@ -64,7 +64,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     
     // Example of a pre-allocation of 100 tokens
     // Actual pre-allocatins will be put here before deployment.
-    token.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * 10**18);
+    token.mint(0x00e2b3204f29ab45d5fd074ff02ade098fbc381d42, 100 * TOKEN_DECIMALS);
   }
 
   /**
@@ -140,7 +140,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   function getSaleRate(uint256 currentBaseTokensSold) public constant returns (uint256) {
 
     // Base units per token
-    uint decimals = 10**18;
+    uint decimals = TOKEN_DECIMALS;
 
     // Get the whole units of tokens sold
     uint256 wholeTokensSold = currentBaseTokensSold.div(decimals);
