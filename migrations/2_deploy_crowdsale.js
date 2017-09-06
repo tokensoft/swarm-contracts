@@ -12,9 +12,9 @@ let crowdsale
 module.exports = function (deployer, network, accounts) {
   // The owners of the multisig contract to accept all payments from the crowd sale.
   let owners = [
-    accounts[0],
-    accounts[1],
-    accounts[2]
+    '0xbf1effc5591db80b5f529e0403abe0dc1919bb50', // Timo
+    '0x7f33e15b32c83018662a7a5eeb1d2b0d970364c6', // Joel
+    '0x41f638c13260727061133eb4990ad61309a2b40a'  // Philipp
   ]
 
   // The required number of signatures required for the multisig wallet
@@ -48,9 +48,16 @@ module.exports = function (deployer, network, accounts) {
     // Save off the token
     token = deployedToken
 
+    // Block times - https://etherscan.io/chart/blocktime
+    // Use 25 seconds
+    // START = 36 hours from 7:00 PM on Tuesday night = NOW_TIME + 36 * 60 / 24 => NOW_TIME + 129,600 / 24 => NOW_BLOCK + 5400
+    // END = START_TIME + 22 Days => START_TIME + 22 * 24 * 60 * 60 / 24 = > START_BLOCK + 79200
+
     // Deploy the crowd sale with params
     let startBlock = 20
     let endBlock = 40
+
+    // USD Rate for tokens
     let rate = 300
 
     // Deploy the crowd sale
@@ -69,5 +76,8 @@ module.exports = function (deployer, network, accounts) {
     // Initialize the crowdsale so that initial tokens are assigned
     console.log('Initializing crowdsale')
     return crowdsale.initializeToken()
+  }).then(() => {
+    // Set the multisig address as the owner
+    return crowdsale.transferOwnership(multisig.address)
   })
 }
