@@ -249,7 +249,7 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   function getSaleRate(uint256 currentBaseTokensSold) public constant returns (uint256) {
 
     // Base units per token
-    uint decimals = 10**18;
+    uint decimals = TOKEN_DECIMALS;
 
     // Get the whole units of tokens sold
     uint256 wholeTokensSold = currentBaseTokensSold.div(decimals);
