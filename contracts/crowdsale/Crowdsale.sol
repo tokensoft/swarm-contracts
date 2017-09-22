@@ -17,9 +17,9 @@ contract Crowdsale {
   // The token being sold
   SwarmToken public token;
 
-  // start and end block where investments are allowed (both inclusive)
-  uint256 public startBlock;
-  uint256 public endBlock;
+  // start and end time where investments are allowed (both inclusive)
+  uint256 public startTime;
+  uint256 public endTime;
 
   // address where funds are collected
   address public wallet;
@@ -42,15 +42,15 @@ contract Crowdsale {
   /**
    * Constructor to save off args defining the sale.
    */
-  function Crowdsale(uint256 _startBlock, uint256 _endBlock, uint256 _rate, address _wallet, address _token) {
-    require(_startBlock >= block.number);
-    require(_endBlock >= _startBlock);
+  function Crowdsale(uint256 _startTime, uint256 _endTime, uint256 _rate, address _wallet, address _token) {
+    require(_startTime >= block.timestamp);
+    require(_endTime >= _startTime);
     require(_rate > 0);
     require(_wallet != 0x0);
 
 
-    startBlock = _startBlock;
-    endBlock = _endBlock;
+    startTime = _startTime;
+    endTime = _endTime;
     rate = _rate;
     wallet = _wallet;
     token = SwarmToken(_token);
@@ -72,14 +72,14 @@ contract Crowdsale {
 
   // @return true if the transaction can buy tokens
   function validPurchase() internal constant returns (bool) {
-    uint256 current = block.number;
-    bool withinPeriod = current >= startBlock && current <= endBlock;
+    uint256 current = block.timestamp;
+    bool withinPeriod = current >= startTime && current <= endTime;
     bool nonZeroPurchase = msg.value != 0;
     return withinPeriod && nonZeroPurchase;
   }
 
   // @return true if crowdsale event has ended
   function hasEnded() public constant returns (bool) {
-    return block.number > endBlock;
+    return block.timestamp > endTime;
   }
 }

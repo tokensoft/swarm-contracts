@@ -1,16 +1,24 @@
-/* global artifacts */
+/* global artifacts, web3 */
 var MiniMeTokenFactory = artifacts.require('./token/MiniMeTokenFactory.sol')
 var SwarmToken = artifacts.require('./token/SwarmToken.sol')
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
+var MultiSigWallet = artifacts.require('./multisig/MultiSigWallet.sol')
 
 let factory
 let token
 let crowdsale
+let wallet
 
 module.exports = function (deployer, network, accounts) {
   let multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
 
   deployer.then(function () {
+    return deployer.deploy(MultiSigWallet, [accounts[0], accounts[1], accounts[2]], 2)
+  }).then(function () {
+    return MultiSigWallet.deployed()
+  }).then((deployedWallet) => {
+    wallet = deployedWallet
+
     // Deploy the factory
     return deployer.deploy(MiniMeTokenFactory)
   }).then(function () {
@@ -29,20 +37,18 @@ module.exports = function (deployer, network, accounts) {
     // Save off the token
     token = deployedToken
 
-    // Block times - https://etherscan.io/chart/blocktime
-    // Use 25 seconds
-    // START = 36 hours from 7:00 PM on Tuesday night = NOW_TIME + 36 * 60 / 24 => NOW_TIME + 129,600 / 24 => NOW_BLOCK + 5400
-    // END = START_TIME + 22 Days => START_TIME + 22 * 24 * 60 * 60 / 24 = > START_BLOCK + 79200
-
     // Deploy the crowd sale with params
-    let startBlock = 4248665
-    let endBlock = 4248665 + 54600
+    let startTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 10000
+    let endTime = startTime + 50000
+
+    console.log('startTime', startTime)
+    console.log('endTime', endTime)
 
     // USD Rate for tokens
-    let rate = 310
+    let rate = 300
 
     // Deploy the crowd sale
-    return deployer.deploy(SwarmCrowdsale, startBlock, endBlock, rate, multisigAddress, token.address)
+    return deployer.deploy(SwarmCrowdsale, startTime, endTime, rate, wallet.address, token.address, 0)
   }).then(function () {
     // Get the deployed crowd sale
     return SwarmCrowdsale.deployed()

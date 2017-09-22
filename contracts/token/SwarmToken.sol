@@ -20,6 +20,5 @@ contract SwarmToken is MiniMeVestedToken {
       "SWM",
       true
     )
-    {}
-    
+    {}    
 }

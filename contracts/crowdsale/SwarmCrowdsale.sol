@@ -9,12 +9,12 @@ import '../token/SwarmToken.sol';
 /**
  * @title SwarmCrowdsale
  * @dev SwarmCrowdsale is a contract for managing a token crowdsale.
- * Crowdsales have a start and end block, where investors can make
+ * Crowdsales have a start and end time stamp, where investors can make
  * token purchases and the crowdsale will assign them tokens based
  * on a token per ETH rate. Funds collected are forwarded to a wallet
  * as they arrive.
  * 
- * Time values are in block numbers.
+ * Time values are in seconds since unix epoch.
  *
  * Rate is initial value of ETH in USD.  Each token starts out costing approx 1 USD and increases
  * as tokens are sold.  rate = USD price of ETH (e.g. "300")
@@ -48,12 +48,17 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
     uint256 _endTime,
     uint256 _rate,
     address _wallet,
-    address _token
+    address _token,
+    uint256 _baseTokensSold
   )
     FinalizableCrowdsale(_startTime, _endTime, _rate, _wallet, _token)
   {
+    baseTokensSold = _baseTokensSold;
   }
 
+  /**
+  * Allows any pre-allocations to bet set for presale purchases or team member allocations.
+  */
   function presaleMint(address _to, uint256 _amt) onlyOwner {
     require(!initialized);
 
@@ -61,12 +66,19 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   }
 
   /**
-  * Mints any tokens for the pre-allocations
+  * Sets the intitialized flag to true so that the presale can start and minting is finished
   */
   function initializeToken() onlyOwner {
     // Allow this to only be called once by the owner.
     require(!initialized);
     initialized = true;
+  }
+
+  /**
+  * Allows the owner to set the tokens sold, based on the number of presale purchases
+  */
+  function setBaseTokensSold(uint256 _baseTokensSold) onlyOwner {
+    baseTokensSold = _baseTokensSold;
   }
 
   /**

@@ -2,5 +2,5 @@
 rm testrpc.out
 testrpc  &> testrpc.out &
 pid=$!
-truffle test
+truffle test "$@"
 kill -9 $pid

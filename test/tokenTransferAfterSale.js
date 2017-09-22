@@ -1,10 +1,10 @@
-/* global web3, artifacts, it, assert, contract */
+/* global web3, artifacts, it, contract */
 var MiniMeTokenFactory = artifacts.require('./token/MiniMeTokenFactory.sol')
 var SwarmToken = artifacts.require('./token/SwarmToken.sol')
 var MultiSigWallet = artifacts.require('./multisig/MultiSigWallet.sol')
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
 var convertToBaseUnits = require('./helpers/convertToBaseUnits')
-var blockHelper = require('./helpers/miner')
+var timeHelper = require('./helpers/fastForwardTime')
 var fastForwardTime = require('./helpers/fastForwardTime')
 
 let vestPeriod = 42 * 24 * 60 * 60
@@ -18,24 +18,24 @@ contract('Swarm Transfer after sale', async (accounts) => {
     let multisig = await MultiSigWallet.new([accounts[0], accounts[1]], 2)
 
     // Deploy the crowd sale with params
-    let startBlock = web3.eth.blockNumber + 10
-    let endBlock = web3.eth.blockNumber + 20
+    let startTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 100
+    let endTime = startTime + 500
     let rate = 300
 
     // Deploy the crowd sale and initialize it with the multisig contract
-    let crowdsale = await SwarmCrowdsale.new(startBlock, endBlock, rate, multisig.address, token.address)
+    let crowdsale = await SwarmCrowdsale.new(startTime, endTime, rate, multisig.address, token.address, 0)
     await token.changeController(crowdsale.address)
     await crowdsale.initializeToken()
     await crowdsale.transferOwnership(multisig.address)
 
     // Mine until start block
-    await blockHelper.mineBlock(startBlock)
+    await timeHelper.fastForward(100)
 
     // Make a purchase from accounts[9]
     await web3.eth.sendTransaction({from: accounts[9], to: crowdsale.address, value: convertToBaseUnits(1), gas: 200000})
 
     // Mine until after the end of the sale
-    await blockHelper.mineBlock(endBlock + 1)
+    await timeHelper.fastForward(500)
 
     // Get the finalization data blob
     let finalizeData = crowdsale.finalize.request().params[0].data

@@ -16,6 +16,10 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   // Vesting will start accruing at this point in time.
   uint256 public vestingStartTime = 0;
 
+  // Default vesting period is 42 days, with a max of 8 periods
+  uint256 public vestingPeriodTime = 42 days;
+  uint256 public vestingTotalPeriods = 8;
+
   // Pass through consructor
   function MiniMeVestedToken(
     address _tokenFactory,
@@ -78,16 +82,20 @@ contract MiniMeVestedToken is MiniMeMintableToken {
 // Token Vesting
 ///////////////////
 
-  // Calculate Vesting
-  // Each vesting period is 42 days, with a max of 8 periods
-  uint256 constant public VESTING_PERIOD_TIME = 42 days;
-  uint256 constant public VESTING_TOTAL_PERIODS = 8;
+  /**
+   * Allow vesting schedule params to be overridden.
+   */
+  function setVestingParams(uint256 _vestingStartTime, uint256 _vestingTotalPeriods, uint256 _vestingPeriodTime) onlyController {
+    vestingStartTime = _vestingStartTime;
+    vestingTotalPeriods = _vestingTotalPeriods;
+    vestingPeriodTime = _vestingPeriodTime;
+  }
 
   /**
     * Gets the number of vesting periods that have completed from the start time to the current time.
     */
   function getVestingPeriodsCompleted(uint256 _vestingStartTime, uint256 _currentTime) public constant returns (uint256) {
-      return _currentTime.sub(_vestingStartTime).div(VESTING_PERIOD_TIME);
+      return _currentTime.sub(_vestingStartTime).div(vestingPeriodTime);
   }
 
   /**
@@ -100,8 +108,13 @@ contract MiniMeVestedToken is MiniMeMintableToken {
   function getVestedBalance(uint256 _initialBalance, uint256 _currentBalance, uint256 _vestingStartTime, uint256 _currentTime)
       public constant returns (uint256)
   {
+      // Short-cut if vesting hasn't started yet
+      if (_currentTime < _vestingStartTime) {
+        return 0;
+      }
+      
       // Short-cut the vesting calculations if the vesting periods are completed
-      if (_currentTime >= _vestingStartTime.add(VESTING_PERIOD_TIME.mul(VESTING_TOTAL_PERIODS))) {
+      if (_currentTime >= _vestingStartTime.add(vestingPeriodTime.mul(vestingTotalPeriods))) {
           return _currentBalance;
       }
 
@@ -109,8 +122,8 @@ contract MiniMeVestedToken is MiniMeMintableToken {
       uint256 vestedPeriodsCompleted = getVestingPeriodsCompleted(_vestingStartTime, _currentTime);
 
       // Calculate the amount that should be withheld.
-      uint256 vestingPeriodsRemaining = VESTING_TOTAL_PERIODS.sub(vestedPeriodsCompleted);
-      uint256 unvestedBalance = _initialBalance.mul(vestingPeriodsRemaining).div(VESTING_TOTAL_PERIODS);
+      uint256 vestingPeriodsRemaining = vestingTotalPeriods.sub(vestedPeriodsCompleted);
+      uint256 unvestedBalance = _initialBalance.mul(vestingPeriodsRemaining).div(vestingTotalPeriods);
 
       // Return the current balance minus any that is still unvested.
       return _currentBalance.sub(unvestedBalance);
