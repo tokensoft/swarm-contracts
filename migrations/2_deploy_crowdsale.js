@@ -14,7 +14,7 @@ module.exports = function (deployer, network, accounts) {
   // let multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
 
   deployer.then(function () {
-    return deployer.deploy(MultiSigWallet, ['0xeE87766610B101E3414446b84dfa10756091E76C'], 1)
+    return deployer.deploy(MultiSigWallet, [accounts[0], accounts[1], accounts[2]], 2)
   }).then(function () {
     return MultiSigWallet.deployed()
   }).then((deployedWallet) => {
@@ -39,13 +39,8 @@ module.exports = function (deployer, network, accounts) {
     token = deployedToken
 
     // Deploy the crowd sale with params
-    // let startTime = 1508594400 //  Saturday, October 21, 2017 2:00:00 PM GMT
-    // let endTime = 1509148800 // Saturday, October 28, 2017 12:00:00 AM GMT
-
-    let startTime = 1506369600 // test
-    let endTime = 1506384000 // test
-    
-    
+    let startTime = 1508594400 //  Saturday, October 21, 2017 2:00:00 PM GMT
+    let endTime = 1509148800 // Saturday, October 28, 2017 12:00:00 AM GMT
 
     // USD Rate for tokens
     let rate = 310
