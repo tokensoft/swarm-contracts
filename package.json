@@ -22,6 +22,7 @@
   "homepage": "https://github.com/tokensoft/swarm-contracts#readme",
   "dependencies": {
     "ethereumjs-testrpc": "^4.0.1",
+    "ethereumjs-wallet": "^0.6.0",
     "moment": "^2.18.1",
     "regenerator-runtime": "^0.11.0",
     "solidity-test-util": "^1.0.8",

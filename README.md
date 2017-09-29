@@ -30,27 +30,29 @@ Contracts were deployed to Ropsten:
 
 ```
 Running migration: 1_initial_migration.js
-  Deploying Migrations...
-  ... 0x51fc65e51256b157e146374b507fbe38e47d2f9fbaba8e89ec41699a25cb2da0
-  Migrations: 0x6ef0b136802e608a3ed8b157240e1726e4b66a62
+  Replacing Migrations...
+  ... 0xf97748c46624aaa2545607a1580a79baa89557774d666dc0259625f5852c8a5e
+  Migrations: 0xf41ad2379163892aa1db4979c074034cc00b27fc
 Saving successful migration to network...
-  ... 0x68f42ef4f1af214ede2758f51ce56c6b74fb1d735457c79c81527607c8bd978e
+  ... 0x9dd83a183f47b8cf4a7675b61fe3a6790894635f45b690b840a90004c2a14ae1
 Saving artifacts...
 Running migration: 2_deploy_crowdsale.js
   Running step...
+  Deploying MultiSigWallet...
+  ... 0x5604c22a353f787a92dc8884e20eec123c88d588266ab487a7918c536f7887c0
+  MultiSigWallet: 0xfddc9a33003b08353c2b9a1dc9b19f39dbe4fee8
   Deploying MiniMeTokenFactory...
-  ... 0x2715eb8eedb96ac4bd3a49e42b7be0af52c1b128858ade2564f1f5b888df756c
-  MiniMeTokenFactory: 0x5260bb5d6e52dbda7061d721fe2b517bccf43ee5
+  ... 0x00b055ab8dbdee29f0268d1101ea7e8df594864963c468b0325ae14a2213c07d
+  MiniMeTokenFactory: 0x8cbf09dad317e7c8e08080653ddedc60d923adda
   Deploying SwarmToken...
-  ... 0xf460b926e18c8df0f16851cddf763173d2f4f378807ac512e0c3e7ccc4687b70
-  SwarmToken: 0x1254d5bdf4232426cf039ae21f2f132d13765042
+  ... 0x9b4843ada98f8c8b45f6a525166021c4bb326c0b3f4eb9963ec56eda5c4279a3
+  SwarmToken: 0x1f30905dc83c431a90465e3f8946f650d59b9397
   Deploying SwarmCrowdsale...
-  ... 0x48902268e6e5ed3cc8bcb3f8ae993e20b212811ada2042acfc783a67a858595c
-  SwarmCrowdsale: 0x99e9a7c8d76d6dc4c9e6018c2f730822ec1a4411
+  ... 0x2b0000280e46a3db2508adecced20ac35e88171502cdd90837ce9ff603df58e0
+  SwarmCrowdsale: 0xd9c9481949dfee53fe15c35696d6fcb5d193d168
 Changing controller address for token
-  ... 0xbbbfa0ee2c6b277c40103a22f17a1879cd8a3f29aeac4f11a1da398395a29ae6
-Initializing crowdsale
-  ... 0x5c2d09b4efdd36c95cba7f9a807ccf07ddb3ca0542869f31698e487a6c3eca6e
+  ... 0x9c981d6c098fdc4a5c568c82eac4c2aead02925a6a46926ee2bf4326329fcf0a
 Saving successful migration to network...
-  ... 0x5106c47ea61e895886d1d60291379c33766464f24d3019a130699fe0760b14a8
+  ... 0xfa5c62b58f407843cd783305d4dedfe2dbaec2a0b8f6d5141d5e55f128dfcff9
+Saving artifacts...
 ```

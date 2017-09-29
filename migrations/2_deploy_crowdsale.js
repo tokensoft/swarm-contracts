@@ -3,6 +3,7 @@ var MiniMeTokenFactory = artifacts.require('./token/MiniMeTokenFactory.sol')
 var SwarmToken = artifacts.require('./token/SwarmToken.sol')
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
 var MultiSigWallet = artifacts.require('./multisig/MultiSigWallet.sol')
+var BigNumber = require('bignumber.js')
 
 let factory
 let token
@@ -10,10 +11,10 @@ let crowdsale
 let wallet
 
 module.exports = function (deployer, network, accounts) {
-  let multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
+  // let multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
 
   deployer.then(function () {
-    return deployer.deploy(MultiSigWallet, [accounts[0], accounts[1], accounts[2]], 2)
+    return deployer.deploy(MultiSigWallet, ['0xeE87766610B101E3414446b84dfa10756091E76C'], 1)
   }).then(function () {
     return MultiSigWallet.deployed()
   }).then((deployedWallet) => {
@@ -38,14 +39,18 @@ module.exports = function (deployer, network, accounts) {
     token = deployedToken
 
     // Deploy the crowd sale with params
-    let startTime = web3.eth.getBlock(web3.eth.blockNumber).timestamp + 10000
-    let endTime = startTime + 50000
+    // let startTime = 1508594400 //  Saturday, October 21, 2017 2:00:00 PM GMT
+    // let endTime = 1509148800 // Saturday, October 28, 2017 12:00:00 AM GMT
 
-    console.log('startTime', startTime)
-    console.log('endTime', endTime)
+    let startTime = 1506369600 // test
+    let endTime = 1506384000 // test
+    
+    
 
     // USD Rate for tokens
-    let rate = 300
+    let rate = 310
+
+    // let startSold = new BigNumber(999999).mul(new BigNumber(10).toPower(18)) // start at 999,999
 
     // Deploy the crowd sale
     return deployer.deploy(SwarmCrowdsale, startTime, endTime, rate, wallet.address, token.address, 0)
