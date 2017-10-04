@@ -43,7 +43,7 @@ module.exports = function (deployer, network, accounts) {
     let endTime = 1509148800 // Saturday, October 28, 2017 12:00:00 AM GMT
 
     // USD Rate for tokens
-    let rate = 310
+    let rate = 300
 
     // let startSold = new BigNumber(999999).mul(new BigNumber(10).toPower(18)) // start at 999,999
 

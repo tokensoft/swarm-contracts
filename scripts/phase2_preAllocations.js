@@ -3,9 +3,8 @@ const BigNumber = require('bignumber.js')
 
 const phase1Mints = [
   // First
-  //{ address: '0x698a740e7bef505e468c2ab41752c99f6acafa5c', amt: new BigNumber('1250000').mul(new BigNumber(10).toPower(18)) }
-  
-  
+  // { address: '0x698a740e7bef505e468c2ab41752c99f6acafa5c', amt: new BigNumber('1250000').mul(new BigNumber(10).toPower(18)) }
+
   // Second
   // { address: '0x3a4adbd7ace9935bf991d7cf9a4cd154d57bd320', amt: new BigNumber('190000').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xf66fe29ad1e87104a8816ad1a8427976d83cb033', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
@@ -119,7 +118,7 @@ const phase1Mints = [
   // { address: '0x7257f267c0308f390e068dcbc6bfc5bc99d86073', amt: new BigNumber('621080').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x3ea249737fae22a1176eecc4ba001196c344a645', amt: new BigNumber('366511').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xb0d192044dba23b2e3091994c4132e5a743ea7c4', amt: new BigNumber('921043').mul(new BigNumber(10).toPower(18)) }
-  
+
   // Fourth
   // { address: '0xe69380a0a33bfe961cafe766f3b2a6b4a095a911', amt: new BigNumber('326544').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x7bd7dfdaefef1def158f3bf29ac16f999f03972f', amt: new BigNumber('427958').mul(new BigNumber(10).toPower(18)) },
@@ -322,7 +321,7 @@ const phase1Mints = [
   // { address: '0xf47f4743ce8047ff8400a2718dae4cdae5632e86', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x56eca5a522bf776bce770f820734345dd5e4598c', amt: new BigNumber('713').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x735cd2e79a42bf89ebd477ba2fb02d6b986150b3', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) }
-  
+
   // // Fith
   // { address: '0xb334d91f5546a245bd2de8b4fbd537367a95f1c2', amt: new BigNumber('206.60446').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x0d22c6f7f72bbb8b6f5e603e4f04148622108e2a', amt: new BigNumber('6200').mul(new BigNumber(10).toPower(18)) },

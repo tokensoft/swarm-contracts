@@ -66,6 +66,24 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   }
 
   /**
+  * Allows a list of pre-allocations to bet set for presale purchases or team member allocations.
+  */
+  function multiPresaleMint(address[] _toArray, uint256[] _amtArray) onlyOwner {
+    require(!initialized);
+
+    // Ensure the array has items
+    require(_toArray.length > 0);
+
+    // Ensure the arrays are the same length
+    require(_toArray.length == _amtArray.length);
+
+    // Iterate over the 
+    for (uint i = 0; i < _toArray.length; i++) {
+      token.mint(_toArray[i], _amtArray[i]);
+    }    
+  }
+
+  /**
   * Sets the intitialized flag to true so that the presale can start and minting is finished
   */
   function initializeToken() onlyOwner {
