@@ -2977,17 +2977,7 @@ sntp@1.x.x:
   dependencies:
     hoek "2.x.x"
 
-solc@0.4.13:
-  version "0.4.13"
-  resolved "https://registry.yarnpkg.com/solc/-/solc-0.4.13.tgz#aa5cbdcce3e6ae3c190d20f5fdf8bc880702ec75"
-  dependencies:
-    fs-extra "^0.30.0"
-    memorystream "^0.3.1"
-    require-from-string "^1.1.0"
-    semver "^5.3.0"
-    yargs "^4.7.1"
-
-solc@^0.4.2:
+solc@0.4.15, solc@^0.4.2:
   version "0.4.15"
   resolved "https://registry.yarnpkg.com/solc/-/solc-0.4.15.tgz#8ae8f1606a124a3f81c28b9dcecb0964ebdf9f25"
   dependencies:
@@ -3255,13 +3245,13 @@ truffle-hdwallet-provider@0.0.3:
     web3 "^0.18.2"
     web3-provider-engine "^8.4.0"
 
-truffle@3.4.6:
-  version "3.4.6"
-  resolved "https://registry.yarnpkg.com/truffle/-/truffle-3.4.6.tgz#72a07154233b4d1198ecb991a5fab468a0c54671"
+truffle@3.4.11:
+  version "3.4.11"
+  resolved "https://registry.yarnpkg.com/truffle/-/truffle-3.4.11.tgz#c4aa12bd512c741a0fd2f6e922e6cd69cda97acb"
   dependencies:
     mocha "^3.4.2"
     original-require "^1.0.1"
-    solc "0.4.13"
+    solc "0.4.15"
 
 tty-browserify@0.0.0:
   version "0.0.0"
@@ -3580,6 +3570,10 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
+
+yesno@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/yesno/-/yesno-0.0.1.tgz#ffbc04ff3d6f99dad24f7463134e9b92ae41bef6"
 
 zeppelin-solidity@1.2.0:
   version "1.2.0"

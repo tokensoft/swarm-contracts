@@ -1,25 +1,16 @@
-/* global artifacts, web3 */
+/* global artifacts */
 var MiniMeTokenFactory = artifacts.require('./token/MiniMeTokenFactory.sol')
 var SwarmToken = artifacts.require('./token/SwarmToken.sol')
 var SwarmCrowdsale = artifacts.require('./crowdsale/SwarmCrowdsale.sol')
-var MultiSigWallet = artifacts.require('./multisig/MultiSigWallet.sol')
-var BigNumber = require('bignumber.js')
+
+const multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
 
 let factory
 let token
 let crowdsale
-let wallet
 
 module.exports = function (deployer, network, accounts) {
-  // let multisigAddress = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
-
   deployer.then(function () {
-    return deployer.deploy(MultiSigWallet, [accounts[0], accounts[1], accounts[2]], 2)
-  }).then(function () {
-    return MultiSigWallet.deployed()
-  }).then((deployedWallet) => {
-    wallet = deployedWallet
-
     // Deploy the factory
     return deployer.deploy(MiniMeTokenFactory)
   }).then(function () {
@@ -42,13 +33,11 @@ module.exports = function (deployer, network, accounts) {
     let startTime = 1508594400 //  Saturday, October 21, 2017 2:00:00 PM GMT
     let endTime = 1509148800 // Saturday, October 28, 2017 12:00:00 AM GMT
 
-    // USD Rate for tokens
-    let rate = 300
-
-    // let startSold = new BigNumber(999999).mul(new BigNumber(10).toPower(18)) // start at 999,999
+    // Initial USD Rate for tokens
+    let rate = 310
 
     // Deploy the crowd sale
-    return deployer.deploy(SwarmCrowdsale, startTime, endTime, rate, wallet.address, token.address, 0)
+    return deployer.deploy(SwarmCrowdsale, startTime, endTime, rate, multisigAddress, token.address, 0)
   }).then(function () {
     // Get the deployed crowd sale
     return SwarmCrowdsale.deployed()
@@ -60,14 +49,4 @@ module.exports = function (deployer, network, accounts) {
     console.log('Changing controller address for token')
     return token.changeController(crowdsale.address)
   })
-
-  // .then(() => {
-
-  //   // Initialize the crowdsale so that initial tokens are assigned
-  //   console.log('Initializing crowdsale')
-  //   return crowdsale.initializeToken()
-  // }).then(() => {
-  //   // Set the multisig address as the owner
-  //   return crowdsale.transferOwnership(multisigAddress)
-  // })
 }
