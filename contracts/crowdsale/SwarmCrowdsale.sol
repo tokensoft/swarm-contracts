@@ -33,10 +33,10 @@ contract SwarmCrowdsale is FinalizableCrowdsale {
   uint256 constant TOKEN_DECIMALS = 10**18;
 
   // Target tokens sold is 33 million
-  uint256 constant TOKEN_TARGET_SOLD = 33 * 10**6 * TOKEN_DECIMALS;
+  uint256 constant TOKEN_TARGET_SOLD = 33333333 * TOKEN_DECIMALS;
 
-  // Cap on the crowdsale for number of tokens - 65,000,000 tokens or approx $255m
-  uint256 constant MAX_TOKEN_SALE_CAP = 65000000 * TOKEN_DECIMALS;
+  // Cap on the crowdsale for number of tokens - 33,333,333 tokens
+  uint256 constant MAX_TOKEN_SALE_CAP = 33333333 * TOKEN_DECIMALS;
 
   bool public initialized = false;
 

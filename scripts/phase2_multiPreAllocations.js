@@ -1,4 +1,3 @@
-const Web3 = require('web3')
 const BigNumber = require('bignumber.js')
 var yesno = require('yesno')
 
@@ -8,10 +7,13 @@ const allocationsList = [
 
   // Second
   // { address: '0x3a4adbd7ace9935bf991d7cf9a4cd154d57bd320', amt: new BigNumber('190000').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xf66fe29ad1e87104a8816ad1a8427976d83cb033', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf66fe29ad1e87104a8816ad1a8427976d83cb033', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) }
+
   // { address: '0xf93d13fa0469ea8fb44a8220a34d8cfd15a35251', amt: new BigNumber('9500').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x44dbacd6b5cdc7d43cc2519da33cca2f99e3c4ab', amt: new BigNumber('400000').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xbebfb97735b12dc836edd8895e5fe4bc132cf99a', amt: new BigNumber('150000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x44dbacd6b5cdc7d43cc2519da33cca2f99e3c4ab', amt: new BigNumber('400000').mul(new BigNumber(10).toPower(18)) }
+
+  // { address: '0xbebfb97735b12dc836edd8895e5fe4bc132cf99a', amt: new BigNumber('150000').mul(new BigNumber(10).toPower(18)) }
+
   // { address: '0x79e5de803e580ae4811c6ef911efd4bd52895a75', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x4d5b73507660f2df201b43ad9ae729286b2ebab2', amt: new BigNumber('10000').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xc62b603e011cf69d729a3a0a77f132ee4ad36239', amt: new BigNumber('12500').mul(new BigNumber(10).toPower(18)) },
@@ -19,87 +21,89 @@ const allocationsList = [
   // { address: '0x1697c3c6b4359124c1b2a8fb85114c67b6491965', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) }
 
   // // Third
-  { address: '0x887dbacd9a0e58b46065f93cc1f82a52defdb979', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x29d1ba46c4502a640bd8e02dd2fd3c87b0b56f05', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x00917c372fa5e0c7fe8ecc04ceea2670e18d3786', amt: new BigNumber('2500').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xb16fbf045765aa376c8ae1f3c7744982783b3908', amt: new BigNumber('251').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf02d417c8c6736dbc7eb089dc6738b950c2f444e', amt: new BigNumber('114417').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x16e352df52389c0511d81d3e0c416108619bf4ad', amt: new BigNumber('521').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x00208f5e88146ccd9a439e20af621ea958ff7c1b', amt: new BigNumber('48903').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1e481777224bf04ae1a9c02ac2a294ed54d06199', amt: new BigNumber('2500').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xb6dc48e8583c8c6e320daf918cadef65f2d85b46', amt: new BigNumber('114417').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xe223771699665bcb0aaf7930277c35d3dec573af', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x364b503b0e86b20b7ac1484c247de50f10dfd8cf', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1b977f3ffeb679c0056f6fcee879637ed6ee4d93', amt: new BigNumber('9986').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf50fa0fe35854e92f691e031f373069671098dc2', amt: new BigNumber('7369').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xfc7d5e499f869d8ee0b17c61b0f6f83bbac2fbc2', amt: new BigNumber('2996').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xe83efc57d9c487acc55a7b62896da43928e64c3e', amt: new BigNumber('66667').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xcb2b24c5c70444659e0764ad5ee0ca90ff32559a', amt: new BigNumber('22251').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xb599ff1910a23ed2e520259c360a4a6d4986f00c', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xfd5955bf412b7537873cbb77eb1e39871e20e142', amt: new BigNumber('66667').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x34aaf201b069d139e7c4062e65b0c964301bcdfc', amt: new BigNumber('4097').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xd2f334cbf3ad1669fb272f17bc1eb5b89cc5d878', amt: new BigNumber('39691').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x017fc689bfd56313c39ea15c9d28a753a2b05182', amt: new BigNumber('58799').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xd0c41588b27e64576dda4e6a08452c59f5a2b2dd', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x640370126072f6b890d4ca2e893103e9363dbe8b', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xbc1bcd39952ba9baa32b7a77a4020590d3a551c5', amt: new BigNumber('80370').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x6780704c30d1ba120bb0c12ba74ed8422f7472b4', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x44dbacd6b5cdc7d43cc2519da33cca2f99e3c4ab', amt: new BigNumber('55000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x9504fdf38a1c6b8531de479aaca0553947345695', amt: new BigNumber('120000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xfa6f3716829f849f7919014bd0fe15bf8d3d45d4', amt: new BigNumber('175000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x11c709fac6452ff20ac609326868c1a96d00ed93', amt: new BigNumber('15000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xfb658f93331e890cef6275c55db18504c18f49fc', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xff23728a1baebab52c6bc58c46dd608cd3edf91d', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4ca8845dac463a0e93dd08f190f0350c3ea3fe48', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x695d0ce8a1f3acb5c122716e7e974b1539160fcf', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf7d8566500150b34e91d2c913b2eecdc1454666f', amt: new BigNumber('63564').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x30a6b2e126e30504e0083e27e0e9c1c8f6fa472a', amt: new BigNumber('333333').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4629b8563200b3c593f14e2b4088bb7cb5e398ed', amt: new BigNumber('3252').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4d49b62c823601584b6be3c12a7105154badccc6', amt: new BigNumber('15000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1d6ff33eb64ba9194a2510f14ccd27f065afea0e', amt: new BigNumber('75000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x88f4652c2f63d2dd550cc7f5b8cd5124a7338a1f', amt: new BigNumber('75000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x7a933c8a0eb99e8bdb07e1b42aa10872845394b7', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xcb8671557d5db8831dac6aeb6c7fa9be515e2917', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x56c624a8c597d73293f852013e224ffe8bca110a', amt: new BigNumber('50000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xbfb7bf7dc5957c3dd679b2ccd75ab35915313aba', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x3f397ddd012fbf990e9ca1a68c03e81c7ed2588a', amt: new BigNumber('500000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1cf519514f77f72b8201bcd42814cc48009e5a4a', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4512f5867d91d6b0131427b89bdb7b460ff30397', amt: new BigNumber('192209').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf5fbff477f5bf5a950f661b70f6b5364875a1bd7', amt: new BigNumber('267785').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x05d6e87fd6326f977a2d8c67b9f3ecc030527261', amt: new BigNumber('215759').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x9ebb758483da174dc3d411386b75afd093cefcf1', amt: new BigNumber('360890').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x499b36a6b92f91524a6b5b8ff321740e84a2b57e', amt: new BigNumber('257796').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x70278c15a29f0ef62a845e1ac31ae41988f24c10', amt: new BigNumber('114328').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xa30f92f9cc478562e0dde73665f1b7addddc2dcd', amt: new BigNumber('419954').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xa9f6238b83fcb65eca3c3189a0dce8689e275d57', amt: new BigNumber('198783').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xa5617800b8fd754fb81f47a65dc49a60accc3432', amt: new BigNumber('212987').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf9cd08d36e972bb070bbd2c1598d21045259ab0d', amt: new BigNumber('239609').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x7f679053a1679de7913885f0db1278e91e8927ca', amt: new BigNumber('521993').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xf4d3aa8091d23f97706177cdd94b8df4c7e4c2fb', amt: new BigNumber('152978').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xc81be3496d053364255f9cb052f81ca9e84a9cf3', amt: new BigNumber('536663').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x19fa94aebd4bc694802b566ae65aed8f07b992f7', amt: new BigNumber('479010').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xe9ef7664d36191ad7ab001b9bb0aafacd260277f', amt: new BigNumber('429060').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xa632837b095d8fa2ef46a22099f91fe10b3f0538', amt: new BigNumber('403104').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xaba96c77e3dd7eea16cc5ebdaaa05483cdd0ff89', amt: new BigNumber('626158').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x17dab6bb606f32447aff568c1d0eedc3649c101c', amt: new BigNumber('830617').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x57d36b0b5f5e333818b1ce072a6d84218e734dec', amt: new BigNumber('93685').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x46381f606014c5d68b38ad5c7e8f9401149faa75', amt: new BigNumber('524029').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4fe584ffc9c755bf6aa9354323e97166958475c9', amt: new BigNumber('822271').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x3eee0f8fadc1c29bfb782e70067a8d91b4dded56', amt: new BigNumber('300124').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xb4802f497bf6238a29e043103ee6eeae1331bfde', amt: new BigNumber('344846').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xd65955ef0f8890d7996f5a7b7b5b05b80605c06a', amt: new BigNumber('400293').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xb46f4ebdd6404686d785edace37d66f815ed7cf8', amt: new BigNumber('409297').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xd42622471946ccff9f7b9246e8d786c74410bfcc', amt: new BigNumber('175668').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x59e7612706dfb1105220ccb97aaf3cbf304cd608', amt: new BigNumber('389941').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x03894e21e6495bdb8b06aa46bdede99c105f2715', amt: new BigNumber('721053').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x5ed1da246ea52f302fff9391e56ec64b9c14cce1', amt: new BigNumber('265837').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x4cabfd1796ec9ead77457768e5ca782a1a9e576f', amt: new BigNumber('618036').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1f8e1a0d9baa07dab1ac77b690ca5abd8dd493db', amt: new BigNumber('850000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xcf7ec4dca84b5c8dc7896c38b4834dc6379bb73d', amt: new BigNumber('307399').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xe4772f4d1e26c7e78c7c5531e71a11b5d0538096', amt: new BigNumber('1107000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x1284e4ca7ec78b028f8195b60553faa319a19969', amt: new BigNumber('1112000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0x178d4d0ca02965e5f94749544aa8da80798e9202', amt: new BigNumber('333000').mul(new BigNumber(10).toPower(18)) },
-  { address: '0xc8d69822b88c6508aef71a735737dd0700201240', amt: new BigNumber('872000').mul(new BigNumber(10).toPower(18)) }
+  // { address: '0x887dbacd9a0e58b46065f93cc1f82a52defdb979', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x29d1ba46c4502a640bd8e02dd2fd3c87b0b56f05', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x00917c372fa5e0c7fe8ecc04ceea2670e18d3786', amt: new BigNumber('2500').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xb16fbf045765aa376c8ae1f3c7744982783b3908', amt: new BigNumber('251').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf02d417c8c6736dbc7eb089dc6738b950c2f444e', amt: new BigNumber('114417').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x16e352df52389c0511d81d3e0c416108619bf4ad', amt: new BigNumber('521').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x00208f5e88146ccd9a439e20af621ea958ff7c1b', amt: new BigNumber('48903').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1e481777224bf04ae1a9c02ac2a294ed54d06199', amt: new BigNumber('2500').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xb6dc48e8583c8c6e320daf918cadef65f2d85b46', amt: new BigNumber('114417').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xe223771699665bcb0aaf7930277c35d3dec573af', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) }
+
+  // { address: '0x364b503b0e86b20b7ac1484c247de50f10dfd8cf', amt: new BigNumber('125000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1b977f3ffeb679c0056f6fcee879637ed6ee4d93', amt: new BigNumber('9986').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf50fa0fe35854e92f691e031f373069671098dc2', amt: new BigNumber('7369').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xfc7d5e499f869d8ee0b17c61b0f6f83bbac2fbc2', amt: new BigNumber('2996').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xe83efc57d9c487acc55a7b62896da43928e64c3e', amt: new BigNumber('66667').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xcb2b24c5c70444659e0764ad5ee0ca90ff32559a', amt: new BigNumber('22251').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xb599ff1910a23ed2e520259c360a4a6d4986f00c', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xfd5955bf412b7537873cbb77eb1e39871e20e142', amt: new BigNumber('66667').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x34aaf201b069d139e7c4062e65b0c964301bcdfc', amt: new BigNumber('4097').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xd2f334cbf3ad1669fb272f17bc1eb5b89cc5d878', amt: new BigNumber('39691').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x017fc689bfd56313c39ea15c9d28a753a2b05182', amt: new BigNumber('58799').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xd0c41588b27e64576dda4e6a08452c59f5a2b2dd', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x640370126072f6b890d4ca2e893103e9363dbe8b', amt: new BigNumber('33333').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xbc1bcd39952ba9baa32b7a77a4020590d3a551c5', amt: new BigNumber('80370').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x6780704c30d1ba120bb0c12ba74ed8422f7472b4', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x44dbacd6b5cdc7d43cc2519da33cca2f99e3c4ab', amt: new BigNumber('55000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x9504fdf38a1c6b8531de479aaca0553947345695', amt: new BigNumber('120000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xfa6f3716829f849f7919014bd0fe15bf8d3d45d4', amt: new BigNumber('175000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x11c709fac6452ff20ac609326868c1a96d00ed93', amt: new BigNumber('15000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xfb658f93331e890cef6275c55db18504c18f49fc', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xff23728a1baebab52c6bc58c46dd608cd3edf91d', amt: new BigNumber('1000000').mul(new BigNumber(10).toPower(18)) }
+
+  // { address: '0x4ca8845dac463a0e93dd08f190f0350c3ea3fe48', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x695d0ce8a1f3acb5c122716e7e974b1539160fcf', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf7d8566500150b34e91d2c913b2eecdc1454666f', amt: new BigNumber('63564').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x30a6b2e126e30504e0083e27e0e9c1c8f6fa472a', amt: new BigNumber('333333').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x4629b8563200b3c593f14e2b4088bb7cb5e398ed', amt: new BigNumber('3252').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x4d49b62c823601584b6be3c12a7105154badccc6', amt: new BigNumber('15000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1d6ff33eb64ba9194a2510f14ccd27f065afea0e', amt: new BigNumber('75000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x88f4652c2f63d2dd550cc7f5b8cd5124a7338a1f', amt: new BigNumber('75000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x7a933c8a0eb99e8bdb07e1b42aa10872845394b7', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xcb8671557d5db8831dac6aeb6c7fa9be515e2917', amt: new BigNumber('25000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x56c624a8c597d73293f852013e224ffe8bca110a', amt: new BigNumber('50000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xbfb7bf7dc5957c3dd679b2ccd75ab35915313aba', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x3f397ddd012fbf990e9ca1a68c03e81c7ed2588a', amt: new BigNumber('500000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1cf519514f77f72b8201bcd42814cc48009e5a4a', amt: new BigNumber('100000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x4512f5867d91d6b0131427b89bdb7b460ff30397', amt: new BigNumber('192209').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf5fbff477f5bf5a950f661b70f6b5364875a1bd7', amt: new BigNumber('267785').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x05d6e87fd6326f977a2d8c67b9f3ecc030527261', amt: new BigNumber('215759').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x9ebb758483da174dc3d411386b75afd093cefcf1', amt: new BigNumber('360890').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x499b36a6b92f91524a6b5b8ff321740e84a2b57e', amt: new BigNumber('257796').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x70278c15a29f0ef62a845e1ac31ae41988f24c10', amt: new BigNumber('114328').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xa30f92f9cc478562e0dde73665f1b7addddc2dcd', amt: new BigNumber('419954').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xa9f6238b83fcb65eca3c3189a0dce8689e275d57', amt: new BigNumber('198783').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xa5617800b8fd754fb81f47a65dc49a60accc3432', amt: new BigNumber('212987').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf9cd08d36e972bb070bbd2c1598d21045259ab0d', amt: new BigNumber('239609').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x7f679053a1679de7913885f0db1278e91e8927ca', amt: new BigNumber('521993').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xf4d3aa8091d23f97706177cdd94b8df4c7e4c2fb', amt: new BigNumber('152978').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xc81be3496d053364255f9cb052f81ca9e84a9cf3', amt: new BigNumber('536663').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x19fa94aebd4bc694802b566ae65aed8f07b992f7', amt: new BigNumber('479010').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xe9ef7664d36191ad7ab001b9bb0aafacd260277f', amt: new BigNumber('429060').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xa632837b095d8fa2ef46a22099f91fe10b3f0538', amt: new BigNumber('403104').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xaba96c77e3dd7eea16cc5ebdaaa05483cdd0ff89', amt: new BigNumber('626158').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x17dab6bb606f32447aff568c1d0eedc3649c101c', amt: new BigNumber('830617').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x57d36b0b5f5e333818b1ce072a6d84218e734dec', amt: new BigNumber('93685').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x46381f606014c5d68b38ad5c7e8f9401149faa75', amt: new BigNumber('524029').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x4fe584ffc9c755bf6aa9354323e97166958475c9', amt: new BigNumber('822271').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x3eee0f8fadc1c29bfb782e70067a8d91b4dded56', amt: new BigNumber('300124').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xb4802f497bf6238a29e043103ee6eeae1331bfde', amt: new BigNumber('344846').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xd65955ef0f8890d7996f5a7b7b5b05b80605c06a', amt: new BigNumber('400293').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xb46f4ebdd6404686d785edace37d66f815ed7cf8', amt: new BigNumber('409297').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xd42622471946ccff9f7b9246e8d786c74410bfcc', amt: new BigNumber('175668').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x59e7612706dfb1105220ccb97aaf3cbf304cd608', amt: new BigNumber('389941').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x03894e21e6495bdb8b06aa46bdede99c105f2715', amt: new BigNumber('721053').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x5ed1da246ea52f302fff9391e56ec64b9c14cce1', amt: new BigNumber('265837').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x4cabfd1796ec9ead77457768e5ca782a1a9e576f', amt: new BigNumber('618036').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1f8e1a0d9baa07dab1ac77b690ca5abd8dd493db', amt: new BigNumber('850000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xcf7ec4dca84b5c8dc7896c38b4834dc6379bb73d', amt: new BigNumber('307399').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xe4772f4d1e26c7e78c7c5531e71a11b5d0538096', amt: new BigNumber('1107000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x1284e4ca7ec78b028f8195b60553faa319a19969', amt: new BigNumber('1112000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x178d4d0ca02965e5f94749544aa8da80798e9202', amt: new BigNumber('333000').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xc8d69822b88c6508aef71a735737dd0700201240', amt: new BigNumber('872000').mul(new BigNumber(10).toPower(18)) }
 
   // { address: '0x0df38ee59e4bde7e496b8a9b4860e9023aa010dd', amt: new BigNumber('515000').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x2b9d66448d1454ee9b475b938b48f83c8afab149', amt: new BigNumber('401000').mul(new BigNumber(10).toPower(18)) },
@@ -452,31 +456,33 @@ const allocationsList = [
   // { address: '0xf646a3cfe5b6bf3b530e1ff9ad334f300ae5a351', amt: new BigNumber('93').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x5bf4a79a0bec1abec595c706bd16b783d3e6a9dc', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xf646a3cfe5b6bf3b530e1ff9ad334f300ae5a351', amt: new BigNumber('1891').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xfa8f2cbda067bcf4e0dcefd38f9259d07fe29e03', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xb358d3dbc9e487a58f22dcc3a0c6acf9db585b22', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x6e1460c450293256694ab411ba5386ca4c7d77e6', amt: new BigNumber('4650').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xae9ef7f9ead8d20c3c7682d26d65eff5461c3ce8', amt: new BigNumber('59.52').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x35c6029b4de8e92ff2c0fe33a4cc8667b633a96d', amt: new BigNumber('310').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x04da469d237e85ec55a4085874e1737fb53548fd', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xead71beb50e36e45547b248246365917cf91fc6a', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x97370c0eb09a6380353ece0885d23a552e684d52', amt: new BigNumber('616.9').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x5a72a9419138ba5c0b6a67dbab76bd6b5d86f460', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x7ed1e469fcb3ee19c0366d829e291451be638e59', amt: new BigNumber('237.15').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x5f257d2d8d12db64574a5548e16f9f10dc0aa5a7', amt: new BigNumber('434').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xd4b3731451de43ad92166a9866cb90795b6c85be', amt: new BigNumber('40.3').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x1afb36050fa8aa282eba64660e29db132b7818fd', amt: new BigNumber('144.2485149').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x0081cd17c254a4e775474d062411cdf70239cbcb', amt: new BigNumber('1395').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x739066ed2d1718fd100cec4d9f347382ec6440dc', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xdfbbb9e6130a8f119e4fb99abc5632d1ac6689f2', amt: new BigNumber('465').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x15dd1fcb78c34109a661de8c2a047e99a57a5731', amt: new BigNumber('303.8').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x2dd47e96da67df0c9687551c05918c3a37f7b98b', amt: new BigNumber('96.1').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x4becd77e7df30d39bd0c3547fdd59df46e0f6423', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x6e1fe04458ab71b2a9313e4bcc8055b55d41dac6', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xa5e9ba8deb7413ad1b1da0fad1fdbc3a0bbae1f0', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xdbd51cdf2c3bfacdff106221de2e19ad6d420414', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x777487cff709f3ff3b1a2c52675b0ccd5b40721c', amt: new BigNumber('310').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x3043c7e1534d1fb3235fed87c9247a6273cd7c04', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x747fb60139ec4e3f71c8b8a449aef3a676689dd9', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) },
+
+  { address: '0xfa8f2cbda067bcf4e0dcefd38f9259d07fe29e03', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xb358d3dbc9e487a58f22dcc3a0c6acf9db585b22', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x6e1460c450293256694ab411ba5386ca4c7d77e6', amt: new BigNumber('4650').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xae9ef7f9ead8d20c3c7682d26d65eff5461c3ce8', amt: new BigNumber('59.52').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x35c6029b4de8e92ff2c0fe33a4cc8667b633a96d', amt: new BigNumber('310').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x04da469d237e85ec55a4085874e1737fb53548fd', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xead71beb50e36e45547b248246365917cf91fc6a', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x97370c0eb09a6380353ece0885d23a552e684d52', amt: new BigNumber('616.9').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x5a72a9419138ba5c0b6a67dbab76bd6b5d86f460', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x7ed1e469fcb3ee19c0366d829e291451be638e59', amt: new BigNumber('237.15').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x5f257d2d8d12db64574a5548e16f9f10dc0aa5a7', amt: new BigNumber('434').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xd4b3731451de43ad92166a9866cb90795b6c85be', amt: new BigNumber('40.3').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x1afb36050fa8aa282eba64660e29db132b7818fd', amt: new BigNumber('144.2485149').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x0081cd17c254a4e775474d062411cdf70239cbcb', amt: new BigNumber('1395').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x739066ed2d1718fd100cec4d9f347382ec6440dc', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xdfbbb9e6130a8f119e4fb99abc5632d1ac6689f2', amt: new BigNumber('465').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x15dd1fcb78c34109a661de8c2a047e99a57a5731', amt: new BigNumber('303.8').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x2dd47e96da67df0c9687551c05918c3a37f7b98b', amt: new BigNumber('96.1').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x4becd77e7df30d39bd0c3547fdd59df46e0f6423', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x6e1fe04458ab71b2a9313e4bcc8055b55d41dac6', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xa5e9ba8deb7413ad1b1da0fad1fdbc3a0bbae1f0', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
+  { address: '0xdbd51cdf2c3bfacdff106221de2e19ad6d420414', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x777487cff709f3ff3b1a2c52675b0ccd5b40721c', amt: new BigNumber('310').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x3043c7e1534d1fb3235fed87c9247a6273cd7c04', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
+  { address: '0x747fb60139ec4e3f71c8b8a449aef3a676689dd9', amt: new BigNumber('1550').mul(new BigNumber(10).toPower(18)) }
+
   // { address: '0x4627c30c13b5d85a17fecbb9be15596bb0a1bd50', amt: new BigNumber('61.26313').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x3156d36416579303330d7f99efcaa65bdd4ebd1b', amt: new BigNumber('310').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xfc7803f808f1d2327dd20e599a6fa21ffc74d0ef', amt: new BigNumber('31').mul(new BigNumber(10).toPower(18)) },
@@ -486,14 +492,16 @@ const allocationsList = [
   // { address: '0x9f545db473f028f98cf4bff87cf9ef02580db6ae', amt: new BigNumber('6200').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x1ff4640379a004ec72fd6fe54832c0cf7388eb5b', amt: new BigNumber('1860').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xe6572ac1633ad3c1410fcd6379163c92042f12ee', amt: new BigNumber('4960').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0x980f3eb282bf81c694e2e7faa713fb5004802c52', amt: new BigNumber('365.8').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0x980f3eb282bf81c694e2e7faa713fb5004802c52', amt: new BigNumber('365.8').mul(new BigNumber(10).toPower(18)) }
+
   // { address: '0xf6ecc169e4e30d0d85e7696746ca87f0740c02bf', amt: new BigNumber('3100').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x4c475fe8e63ad9d651ce2c8f0f65ce4b8aab2b22', amt: new BigNumber('31').mul(new BigNumber(10).toPower(18)) },
   // { address: '0xead71beb50e36e45547b248246365917cf91fc6a', amt: new BigNumber('15.5').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x692ca7329615e7d6a3c31371769c897f8bdc223b', amt: new BigNumber('155').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x692ca7329615e7d6a3c31371769c897f8bdc223b', amt: new BigNumber('930').mul(new BigNumber(10).toPower(18)) },
   // { address: '0x692ca7329615e7d6a3c31371769c897f8bdc223b', amt: new BigNumber('7750').mul(new BigNumber(10).toPower(18)) },
-  // { address: '0xacaf5d2076a0c4002f902517eeb2e5dfd3fb6738', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) },
+  // { address: '0xacaf5d2076a0c4002f902517eeb2e5dfd3fb6738', amt: new BigNumber('620').mul(new BigNumber(10).toPower(18)) }
+
   // { address: '0x4c475fe8e63ad9d651ce2c8f0f65ce4b8aab2b22', amt: new BigNumber('31').mul(new BigNumber(10).toPower(18)) }
 ]
 
@@ -508,8 +516,12 @@ module.exports = async function (callback) {
   console.log('Preparing Allocation list...')
   console.log('')
   let total = new BigNumber(0)
-
+  let addressList = []
+  let amountList = []
   for (let i = 0; i < allocationsList.length; i++) {
+    addressList.push(allocationsList[i].address)
+    amountList.push(allocationsList[i].amt.toNumber())
+
     // Double check the address
     if (!web3.isAddress(allocationsList[i].address)) {
       console.error('ERROR: Invalid address detected: ' + allocationsList[i].address)
@@ -526,11 +538,7 @@ module.exports = async function (callback) {
   yesno.ask('Are you sure you want to continue?', false, function (ok) {
     if (ok) {
       console.log('Minting tokens...')
-      for (let i = 0; i < allocationsList.length; i++) {
-        console.log('Minting: ' + allocationsList[i].address + ' - ' + allocationsList[i].amt.div(new BigNumber(10).toPower(18)).toFormat())
-        crowdsaleInstance.presaleMint(allocationsList[i].address, allocationsList[i].amt, { gasPrice: 21000000000, gas: 150000, from: 'XXX' })
-      }
-
+      crowdsaleInstance.multiPresaleMint(addressList, amountList, { gasPrice: 21000000000, gas: 2500000, from: 'XXX' })
       process.exit(0)
     } else {
       console.log('Exiting...')
