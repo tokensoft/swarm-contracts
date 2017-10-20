@@ -1,0 +1,1 @@
+{ address: '0x2f68a91514b7fcad7006eb190fb8e7904fd11e7b', amt: new BigNumber('39.95406821').mul(new BigNumber(10).toPower(18)) },

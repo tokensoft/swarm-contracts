@@ -7,10 +7,10 @@ module.exports = async function (callback) {
   let crowdSaleDef = require('../build/contracts/SwarmCrowdsale.json')
   let crowdsaleABI = crowdSaleDef.abi
   let crowdSaleContract = web3.eth.contract(crowdsaleABI)
-  let crowdsaleInstance = crowdSaleContract.at('0x5feeaede27be6f587e85aa6c64381fe8b63a3ebe')
+  let crowdsaleInstance = crowdSaleContract.at('XXX')
 
   console.log('')
-  let newOwner = '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0'
+  let newOwner = 'XXX'
 
   if (!web3.isAddress(newOwner)) {
     console.error('Invalid address set as new owner')
@@ -22,7 +22,7 @@ module.exports = async function (callback) {
   yesno.ask('Are you sure you want to continue?', false, function (ok) {
     if (ok) {
       console.log('Transferring ownership...')
-      crowdsaleInstance.transferOwnership(newOwner, { gasPrice: 21000000000, gas: 100000, from: '0x8a2b891bb2062026f28a3905dad4fdaaa3515074' })
+      crowdsaleInstance.transferOwnership(newOwner, { gasPrice: 21000000000, gas: 100000, from: 'XXX' })
 
       process.exit(0)
     } else {

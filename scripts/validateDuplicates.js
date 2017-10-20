@@ -500,12 +500,17 @@ module.exports = async function (callback) {
   console.log('')
   console.log('Adding up all amounts...')
 
-  let total = new BigNumber(0)
+  let duplicateCount = 0
 
-  for (let i = 0; i < allocationsList.length; i++) {
-    total = total.add(allocationsList[i].amt)
+  for (let i = 0; i < allocationsList.length - 1; i++) {
+    for (let j = i + 1; j < allocationsList.length; j++) {
+      if (allocationsList[i].address.toLowerCase() === allocationsList[j].address.toLowerCase()) {
+        console.log('Found duplicate: ' + allocationsList[i].address)
+        duplicateCount++
+      }
+    }
   }
 
-  console.log('Total value of all allocations: ' + total.div(new BigNumber(10).toPower(18)).toFormat())
+  console.log('Found total duplicate count: ' + duplicateCount)
   console.log('')
 }

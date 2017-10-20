@@ -12,7 +12,7 @@ module.exports = async function (callback) {
   console.log('Setting up parameters...')
   console.log('')
 
-  let total = new BigNumber(100000).mul(new BigNumber(10).toPower(18))
+  let total = new BigNumber(8122578.22382251).mul(new BigNumber(10).toPower(18))
 
   console.log('You are about to set the total amount of tokens sold to: ' + total.div(new BigNumber(10).toPower(18)).toFormat() + ' tokens.')
   console.log('')

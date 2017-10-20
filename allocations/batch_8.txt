@@ -1,0 +1,2 @@
+{ address: '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0', amt: new BigNumber('20187298.622310').mul(new BigNumber(10).toPower(18)) },
+{ address: '0x8bf7b2d536d286b9c5ad9d99f608e9e214de63f0', amt: new BigNumber('6650000').mul(new BigNumber(10).toPower(18)) }

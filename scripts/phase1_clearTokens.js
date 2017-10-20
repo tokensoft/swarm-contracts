@@ -500,13 +500,13 @@ module.exports = async function (callback) {
   let provider = new Web3.providers.HttpProvider(process.env.ETH_PROVIDER_URI)
   let web3 = new Web3(provider)
 
-  web3.eth.defaultAccount = '0x886eb606639eab3fcfa68200e014dc1e40051cfa'
+  web3.eth.defaultAccount = 'XXX'
 
   console.log('Loading Contract')
   let tokenDef = require('../build/contracts/SwarmToken.json')
   let tokenABI = tokenDef.abi
   let tokenContract = web3.eth.contract(tokenABI)
-  let tokenInstance = tokenContract.at('0x00fe968b962dc6674b997d99cbd9c2fa7e8e97d2')
+  let tokenInstance = tokenContract.at('XXX')
 
   // To be run for distribution
   console.log('Loading Allocations')

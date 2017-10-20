@@ -9,7 +9,7 @@ module.exports = async function (callback) {
   let payload = contractInst.pause.request().params[0].data
   console.log(payload)
 
-  // console.log(mutlisgInst.submitTransaction.request('0xF18023908a52D7f058D40277f947748ab9619ef1', 0, payload).params[0].data)
+  // console.log(mutlisgInst.submitTransaction.request('XXX', 0, payload).params[0].data)
 
   console.log('')
 }
